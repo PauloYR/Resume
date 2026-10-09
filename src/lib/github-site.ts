@@ -5,6 +5,6 @@ import { loadGithubActivity, type GithubActivity } from './github';
 export async function getSiteGithubActivity(): Promise<GithubActivity | null> {
   return loadGithubActivity({
     user: site.githubUser,
-    token: process.env.GITHUB_TOKEN ?? import.meta.env.GITHUB_TOKEN,
+    token: process.env.GITHUB_TOKEN || import.meta.env.GITHUB_TOKEN,
   });
 }

@@ -3,7 +3,7 @@
 
 // Public profile name. GITHUB_USER can override it at build time (e.g. to test with another account).
 const githubUser =
-  process.env.GITHUB_USER ?? import.meta.env.GITHUB_USER ?? 'PauloYR';
+  process.env.GITHUB_USER || import.meta.env.GITHUB_USER || 'PauloYR';
 
 export const site = {
   name: 'Paulo Rocha',
