@@ -97,7 +97,7 @@ components:
 
 O padrão da categoria executado sem enfeite: um portfólio de desenvolvedor em cards, na estrutura do template do Figma, com violeta e azul no lugar do verde. Escuro é o tema de origem, um grafite arroxeado com superfícies elevadas e bordas de 1px. O claro é um lavanda pálido com superfícies brancas. Nada na página existe só para decorar: o peso visual vai para os números reais dos sistemas.
 
-A voz é de quem mostra prova. Títulos em grotesca confiante, texto em humanista calmo, cards de um só nível e um único elemento em movimento, o carrossel de empresas. O gradiente é raro de propósito: aparece no trecho destacado do título e no botão principal, e em mais nenhum lugar.
+A voz é de quem mostra prova. Títulos em grotesca confiante, texto em humanista calmo, cards de um só nível e pouco movimento: o carrossel de empresas é o único elemento que se move sozinho, o resto só reage ao scroll ou a uma ação da pessoa. O gradiente é raro de propósito: aparece no trecho destacado do título e no botão principal, e em mais nenhum lugar.
 
 **Key Characteristics:**
 
@@ -195,11 +195,21 @@ Cabeçalho fixo com marca, links centrais no desktop, botão de tema e menu em c
 
 ### Carrossel de logos (componente de assinatura)
 
-Faixa que desliza a 42s, em duas listas, com borda esmaecida por máscara alfa. Pausa no hover e no foco; com `prefers-reduced-motion` vira uma grade estática. Cada logo traz o nome em legenda de 12px, presa à largura do tile. É o único elemento que se move sozinho na página.
+Faixa que desliza a 42s, em duas listas, com borda esmaecida por máscara alfa. Pausa no hover e no foco; com `prefers-reduced-motion` vira uma grade estática. Cada logo traz o nome em legenda de 12px, presa à largura do tile. É o único elemento que se move sozinho na página, sem depender de scroll ou ação.
 
 ### Gopher (stack)
 
 Botão de 44px ou mais com o gopher oficial (Renée French, vetor de Takuya Ueda, CC BY 3.0, crédito no rodapé), ao lado do chip de Go. Ao tocar, dá um pulo curto de transform e um balão mostra uma métrica real dos cases. Só se move por ação da pessoa; com `prefers-reduced-motion` o pulo some e o balão continua trocando de texto.
+
+### Movimento por scroll e ação
+
+Regra geral: o movimento responde ao scroll ou a uma ação da pessoa, acontece uma vez e usa só `transform` e `opacity`. Sem biblioteca; tokens `--ease-out`, `--dur-fast` e `--dur-base` em `global.css`. Tudo some com `prefers-reduced-motion: reduce`, e em navegadores sem suporte o conteúdo simplesmente aparece estático.
+
+- **Entrada (`.reveal`):** blocos sobem 12px e aparecem ao entrar na tela (`animation-timeline: view()`, sem JS). Usada em cabeçalhos de seção, cases, carrosséis, stack, GitHub e cada cargo. O hero não anima, para não atrasar o LCP.
+- **Números dos cases:** o valor final já está no HTML. Ao entrar na tela (uma vez), números simples contam de zero até o valor em 900ms. Intervalos ("15–25 s") e palavras ("nunca") não animam.
+- **Trajetória:** timeline com trilho sólido à esquerda (sem gradiente) que se desenha com o scroll e um nó por cargo (preenchido no cargo atual). Cada cargo abre com `<details>` nativo, mostrando realizações e stack; o primeiro vem aberto.
+- **Paleta de comandos (Ctrl/Cmd+K):** `<dialog>` nativo com busca e ações (seções, páginas, tema, currículo, copiar e-mail, LinkedIn, GitHub). No desktop há o botão "Buscar" no header; no celular, o item "Buscar no site" no menu. Itens de 44px, selecionado marcado por barra e fundo, entrada de 150ms.
+- **Entre páginas:** `@view-transition` troca `/`, `/projetos` e `/curriculo` com fade; o header tem nome próprio para ficar parado.
 
 ## Do's and Don'ts
 

@@ -6,6 +6,7 @@ import { site } from '@config/site';
 import { absoluteUrl } from '@lib/seo';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CommandPalette from '../components/CommandPalette.astro';
 import JsonLd from '../components/JsonLd.astro';
 
 interface Props {
@@ -93,5 +94,6 @@ const ogImage = absoluteUrl(origin, `/og/${ogSlug}.png`);
       <slot />
     </main>
     <Footer />
+    <CommandPalette />
   </body>
 </html>

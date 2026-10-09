@@ -11,7 +11,9 @@ interface Props {
     | 'download'
     | 'arrow'
     | 'mail'
-    | 'copy';
+    | 'copy'
+    | 'search'
+    | 'chevron';
   class?: string;
 }
 const { name, class: className = 'size-5' } = Astro.props;
@@ -29,6 +31,8 @@ const paths: Record<Props['name'], string> = {
   arrow: 'M5 12h14m0 0l-5-5m5 5l-5 5',
   mail: 'M3 6h18v12H3zM3 7l9 7 9-7',
   copy: 'M9 9h10v10H9zM5 15V5h10',
+  search: 'M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4-4',
+  chevron: 'M6 9l6 6 6-6',
 };
 ---
 

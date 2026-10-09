@@ -10,7 +10,7 @@ interface Props {
 const { current } = Astro.props;
 ---
 
-<header class="print:hidden sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur-sm">
+<header class="print:hidden sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur-sm [view-transition-name:site-header]">
   <div class="container-page flex items-center justify-between gap-2 py-2">
     <a
       href="/"
@@ -38,6 +38,22 @@ const { current } = Astro.props;
     </nav>
 
     <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-palette-open
+        aria-haspopup="dialog"
+        aria-keyshortcuts="Control+K Meta+K"
+        class="hidden min-h-11 items-center gap-3 rounded-full border border-line px-4 text-sm text-muted transition-colors hover:border-accent hover:text-fg active:bg-surface-2 md:inline-flex"
+      >
+        <Icon name="search" class="size-4" />
+        Buscar
+        <kbd
+          data-palette-shortcut
+          class="rounded-md border border-line px-1.5 py-0.5 font-sans text-xs"
+        >
+          Ctrl K
+        </kbd>
+      </button>
       <ThemeToggle />
       <button
         type="button"
@@ -59,6 +75,17 @@ const { current } = Astro.props;
     class="border-t border-line bg-bg md:hidden"
   >
     <ul class="container-page py-2">
+      <li>
+        <button
+          type="button"
+          data-palette-open
+          aria-haspopup="dialog"
+          class="flex min-h-12 w-full items-center justify-between border-b border-line text-left text-lg text-muted"
+        >
+          Buscar no site
+          <Icon name="search" class="size-4" />
+        </button>
+      </li>
       {nav.map((item) => (
         <li>
           <a
@@ -100,6 +127,6 @@ const { current } = Astro.props;
     }
   });
   menu
-    ?.querySelectorAll('a')
+    ?.querySelectorAll('a, button')
     .forEach((link) => link.addEventListener('click', () => setOpen(false)));
 </script>

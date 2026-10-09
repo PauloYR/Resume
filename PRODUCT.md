@@ -54,4 +54,4 @@ Resume at `~/Documentos/Curriculo_Paulo_Rocha.pdf` (roles, metrics, skills, educ
 
 ## Accessibility & Inclusion
 
-WCAG AA contrast in both themes, full keyboard operation, visible focus, `prefers-reduced-motion` respected (carousel stops), touch targets of at least 44px.
+WCAG AA contrast in both themes, full keyboard operation, visible focus, `prefers-reduced-motion` respected (carousel stops, reveals, count-up and view transitions are disabled), touch targets of at least 44px.

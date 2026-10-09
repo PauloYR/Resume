@@ -1,5 +1,8 @@
 ---
 import { formatPeriod } from '@lib/format';
+import { toChip } from '@lib/tech-icons';
+import Icon from './Icon.astro';
+import TechChip from './TechChip.astro';
 
 interface Props {
   items: {
@@ -10,14 +13,21 @@ interface Props {
     period: { start: string; end: string | null };
     location: string;
     summary: string;
+    bullets: string[];
+    stack: string[];
   }[];
 }
 const { items } = Astro.props;
 ---
 
-<ol class="tabular">
-  {items.map((item) => (
-    <li class="grid gap-1 border-t border-line py-6 md:grid-cols-12 md:gap-8">
+<ol class="tabular timeline">
+  {items.map((item, index) => (
+    <li class="reveal relative grid gap-1 border-t border-line py-6 md:grid-cols-12 md:gap-8">
+      <span
+        class="timeline-node"
+        data-current={item.period.end === null ? 'true' : 'false'}
+        aria-hidden="true"
+      />
       <p class="text-sm text-muted md:col-span-3 md:pt-1">
         {formatPeriod(item.period)}
       </p>
@@ -39,6 +49,29 @@ const { items } = Astro.props;
         </h3>
         <p class="mt-1 max-w-[60ch] text-muted">{item.summary}</p>
         <p class="mt-1 text-sm text-muted">{item.location}</p>
+
+        <details class="group mt-3" open={index === 0}>
+          <summary class="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-full border border-line px-4 text-sm font-medium text-fg transition-colors hover:border-accent active:bg-surface-2 [&::-webkit-details-marker]:hidden">
+            <span class="group-open:hidden">Ver realizações e stack</span>
+            <span class="hidden group-open:inline">Ocultar detalhes</span>
+            <Icon
+              name="chevron"
+              class="size-4 transition-transform duration-300 group-open:rotate-180"
+            />
+          </summary>
+          <ul class="mt-4 grid max-w-[65ch] gap-3 text-fg">
+            {item.bullets.map((bullet) => (
+              <li class="relative pl-5 before:absolute before:top-[0.7em] before:left-0 before:h-0.5 before:w-2.5 before:bg-accent">
+                {bullet}
+              </li>
+            ))}
+          </ul>
+          <ul class="mt-5 flex flex-wrap gap-2" aria-label="Tecnologias usadas">
+            {item.stack.map((tech) => (
+              <TechChip chip={toChip(tech)} />
+            ))}
+          </ul>
+        </details>
       </div>
     </li>
   ))}

@@ -9,7 +9,7 @@ interface Props {
 const { id, title, intro, href, linkLabel } = Astro.props;
 ---
 
-<div class="mb-8 flex flex-col gap-3 md:mb-12 md:flex-row md:items-end md:justify-between">
+<div class="reveal mb-8 flex flex-col gap-3 md:mb-12 md:flex-row md:items-end md:justify-between">
   <div>
     <h2 id={id} class="text-[clamp(2rem,7vw,3.75rem)] font-semibold">
       {title}

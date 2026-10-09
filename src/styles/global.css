@@ -62,6 +62,13 @@
   }
 }
 
+/* Motion tokens, shared by every transition and scroll-driven effect. */
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -188,5 +195,103 @@
 
   .tabular {
     font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /*
+    Timeline of the career section: a rail on the left and one node per role. The rail
+    is fully drawn by default and is only "drawn by scroll" where scroll-driven animations exist.
+  */
+  .timeline {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.4375rem;
+    width: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+    transform-origin: top;
+  }
+
+  .timeline-node {
+    position: absolute;
+    top: 1.75rem;
+    left: -1.75rem;
+    width: 0.9375rem;
+    height: 0.9375rem;
+    border-radius: 9999px;
+    border: 2px solid var(--accent);
+    background: var(--bg);
+  }
+
+  .timeline-node[data-current='true'] {
+    background: var(--accent);
+  }
+}
+
+/*
+  Entrance for blocks that scroll into view. Plain CSS (no JS): browsers without
+  scroll-driven animations simply show the block, and reduced motion never animates.
+*/
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rail-draw {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes palette-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+
+    .timeline::before {
+      animation: rail-draw linear both;
+      animation-timeline: view();
+      animation-range: cover 5% cover 60%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog[open].palette {
+    animation: palette-in var(--dur-fast) var(--ease-out);
+  }
+
+  /* Cross-document view transitions between /, /projetos and /curriculo. */
+  @view-transition {
+    navigation: auto;
   }
 }

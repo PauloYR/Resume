@@ -23,7 +23,7 @@ const {
 } = Astro.props;
 ---
 
-<article class="card grid gap-6 p-5 md:grid-cols-12 md:gap-10 md:p-8">
+<article class="card reveal grid gap-6 p-5 md:grid-cols-12 md:gap-10 md:p-8">
   <div class="md:col-span-7">
     <Heading class="text-[clamp(1.4rem,4.4vw,2rem)] font-semibold">
       {title}
@@ -78,9 +78,66 @@ const {
               </span>
             </>
           )}
-          {metric.after}
+          <span data-count>{metric.after}</span>
         </dd>
       </div>
     ))}
   </dl>
 </article>
+
+<script>
+  import { formatMetric, parseMetric } from '@lib/count-up';
+  import type { ParsedMetric } from '@lib/count-up';
+
+  const DURATION_MS = 900;
+
+  function run(element: HTMLElement, parsed: ParsedMetric, final: string) {
+    const start = performance.now();
+    function frame(now: number) {
+      const progress = Math.min(1, (now - start) / DURATION_MS);
+      element.textContent =
+        progress < 1 ? formatMetric(parsed, progress) : final;
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const animate =
+    'IntersectionObserver' in window &&
+    window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+
+  if (animate) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting || !(entry.target instanceof HTMLElement)) {
+            continue;
+          }
+          const target = entry.target;
+          observer.unobserve(target);
+          const final = target.dataset.final ?? '';
+          const parsed = parseMetric(final);
+          if (parsed) run(target, parsed, final);
+        }
+      },
+      { threshold: 0.6 },
+    );
+
+    document
+      .querySelectorAll<HTMLElement>('[data-count]')
+      .forEach((element) => {
+        const final = element.textContent ?? '';
+        if (!parseMetric(final)) return;
+        element.dataset.final = final;
+        // Below the fold: start at zero so the number does not pop when it scrolls in.
+        const parsed = parseMetric(final);
+        if (
+          parsed &&
+          element.getBoundingClientRect().top > window.innerHeight
+        ) {
+          element.textContent = formatMetric(parsed, 0);
+        }
+        observer.observe(element);
+      });
+  }
+</script>
