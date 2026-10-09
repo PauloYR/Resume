@@ -1,0 +1,435 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-09T19:40:22+00:00",
+  "title": "Design System: Paulo Rocha",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "Grafite Violeta",
+        "canonical": "#15131f",
+        "tonalRamp": [
+          "#201d2f",
+          "#36304f",
+          "#4b446f",
+          "#60578e",
+          "#8981b1",
+          "#aca6c9",
+          "#d3d0e2",
+          "#f0eff5"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Superfície Elevada",
+        "canonical": "#1e1c2b",
+        "tonalRamp": [
+          "#201e2e",
+          "#36324d",
+          "#4b466c",
+          "#615b8b",
+          "#8983af",
+          "#ada9c7",
+          "#d3d1e1",
+          "#f0f0f5"
+        ]
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Superfície Dois",
+        "canonical": "#272539",
+        "tonalRamp": [
+          "#201e2e",
+          "#35324d",
+          "#4a466c",
+          "#5f5a8b",
+          "#8883af",
+          "#aba8c7",
+          "#d2d1e1",
+          "#f0f0f5"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Fio Violeta",
+        "canonical": "#322f49",
+        "tonalRamp": [
+          "#201e2f",
+          "#35324e",
+          "#4a466d",
+          "#605a8c",
+          "#8883af",
+          "#aca8c7",
+          "#d2d0e1",
+          "#f0eff5"
+        ]
+      },
+      "fg": {
+        "role": "neutral",
+        "displayName": "Névoa",
+        "canonical": "#f3f1ff",
+        "tonalRamp": [
+          "#0b004c",
+          "#120080",
+          "#1900b2",
+          "#2100e6",
+          "#5033ff",
+          "#8570ff",
+          "#bdb2ff",
+          "#e9e5ff"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Lilás Cinza",
+        "canonical": "#aeaacd",
+        "tonalRamp": [
+          "#1f1c30",
+          "#332f50",
+          "#474270",
+          "#5c5590",
+          "#857fb3",
+          "#a9a5ca",
+          "#d1cfe3",
+          "#f0eff6"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Violeta Lavanda",
+        "canonical": "#a58bff",
+        "tonalRamp": [
+          "#11004c",
+          "#1d0080",
+          "#2800b2",
+          "#3300e6",
+          "#6133ff",
+          "#9070ff",
+          "#c4b2ff",
+          "#ebe5ff"
+        ]
+      },
+      "accent-2": {
+        "role": "secondary",
+        "displayName": "Azul Céu",
+        "canonical": "#5ba2ff",
+        "tonalRamp": [
+          "#00214c",
+          "#003780",
+          "#004db2",
+          "#0063e6",
+          "#338bff",
+          "#70aeff",
+          "#b2d4ff",
+          "#e5f1ff"
+        ]
+      },
+      "accent-fg": {
+        "role": "neutral",
+        "displayName": "Tinta do Botão",
+        "canonical": "#15131f",
+        "tonalRamp": [
+          "#201d2f",
+          "#36304f",
+          "#4b446f",
+          "#60578e",
+          "#8981b1",
+          "#aca6c9",
+          "#d3d0e2",
+          "#f0eff5"
+        ]
+      },
+      "bg-light": {
+        "role": "neutral",
+        "displayName": "Lavanda Pálido",
+        "canonical": "#f7f5ff",
+        "tonalRamp": [
+          "#0f004c",
+          "#190080",
+          "#2400b2",
+          "#2e00e6",
+          "#5c33ff",
+          "#8d70ff",
+          "#c2b2ff",
+          "#ebe5ff"
+        ]
+      },
+      "surface-light": {
+        "role": "neutral",
+        "displayName": "Superfície Branca",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#999999",
+          "#b8b8b8",
+          "#d9d9d9",
+          "#f2f2f2"
+        ]
+      },
+      "surface-2-light": {
+        "role": "neutral",
+        "displayName": "Lavanda Névoa",
+        "canonical": "#efebfb",
+        "tonalRamp": [
+          "#1a0d40",
+          "#2b156a",
+          "#3c1e95",
+          "#4d26bf",
+          "#7755dd",
+          "#a088e7",
+          "#ccbff2",
+          "#eeeafb"
+        ]
+      },
+      "border-light": {
+        "role": "neutral",
+        "displayName": "Fio Lavanda",
+        "canonical": "#ddd6f3",
+        "tonalRamp": [
+          "#1b113b",
+          "#2e1d63",
+          "#40288a",
+          "#5234b2",
+          "#7c61d1",
+          "#a391df",
+          "#cec4ee",
+          "#efebf9"
+        ]
+      },
+      "fg-light": {
+        "role": "neutral",
+        "displayName": "Tinta Violeta",
+        "canonical": "#1a1632",
+        "tonalRamp": [
+          "#1c1735",
+          "#2e2759",
+          "#40377c",
+          "#53469f",
+          "#7d71c1",
+          "#a49cd3",
+          "#cecae8",
+          "#efedf7"
+        ]
+      },
+      "muted-light": {
+        "role": "neutral",
+        "displayName": "Violeta Acinzentado",
+        "canonical": "#565080",
+        "tonalRamp": [
+          "#201d2f",
+          "#35314e",
+          "#4a456e",
+          "#5f588d",
+          "#8781b1",
+          "#aba7c8",
+          "#d2d0e2",
+          "#f0eff5"
+        ]
+      },
+      "accent-light": {
+        "role": "primary",
+        "displayName": "Violeta Profundo",
+        "canonical": "#5b34d6",
+        "tonalRamp": [
+          "#190d40",
+          "#2a156a",
+          "#3b1e95",
+          "#4b27bf",
+          "#7655dd",
+          "#9f88e7",
+          "#ccbff2",
+          "#eeeafb"
+        ]
+      },
+      "accent-2-light": {
+        "role": "secondary",
+        "displayName": "Azul Royal",
+        "canonical": "#1d5fd8",
+        "tonalRamp": [
+          "#091e43",
+          "#0f3170",
+          "#15459d",
+          "#1b59ca",
+          "#4b82e7",
+          "#81a8ee",
+          "#bcd0f6",
+          "#e9effc"
+        ]
+      },
+      "accent-fg-light": {
+        "role": "neutral",
+        "displayName": "Branco do Botão",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#999999",
+          "#b8b8b8",
+          "#d9d9d9",
+          "#f2f2f2"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Só o h1 da home."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Títulos de seção."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Título de cada case."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido, 46 a 60ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Legendas, datas, chips."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out-200",
+        "value": "200ms ease-out",
+        "purpose": "Hover de cards e botões (sobe 2px)."
+      },
+      {
+        "name": "underline-grow",
+        "value": "300ms ease-out",
+        "purpose": "Sublinhado do link ativo na navegação."
+      },
+      {
+        "name": "marquee",
+        "value": "42s linear infinite",
+        "purpose": "Carrossel de logos; pausa no hover e foco, estático com reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ação principal: Falar comigo, Enviar e-mail. Único lugar do gradiente além do título.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Falar comigo</a>",
+      "css": ".ds-btn-primary{font-family:'Hanken Grotesk Variable',system-ui,sans-serif;display:inline-flex;align-items:center;min-height:56px;padding:0 32px;border-radius:9999px;background-image:linear-gradient(90deg,#a58bff,#5ba2ff);color:#15131f;font-size:1.125rem;font-weight:600;text-decoration:none;transition:transform 200ms ease-out}.ds-btn-primary:hover{transform:translateY(-2px)}.ds-btn-primary:focus-visible{outline:2px solid #5ba2ff;outline-offset:3px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Ação de apoio: Baixar currículo (PDF).",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Baixar currículo (PDF)</a>",
+      "css": ".ds-btn-secondary{font-family:'Hanken Grotesk Variable',system-ui,sans-serif;display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:9999px;border:1px solid #322f49;color:#f3f1ff;font-weight:500;text-decoration:none;transition:border-color 200ms ease-out}.ds-btn-secondary:hover{border-color:#a58bff}.ds-btn-secondary:focus-visible{outline:2px solid #5ba2ff;outline-offset:3px}"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Superfície elevada de 14px com uma borda; sem sombra.",
+      "html": "<div class=\"ds-card\"><h3>Biografia</h3><p>8 anos de experiência, de apps Android nativos a microsserviços em Go.</p></div>",
+      "css": ".ds-card{font-family:'Hanken Grotesk Variable',system-ui,sans-serif;background:#1e1c2b;border:1px solid #322f49;border-radius:14px;padding:20px;color:#f3f1ff;max-width:340px}.ds-card h3{margin:0;font-size:1.125rem;font-weight:600}.ds-card p{margin:8px 0 0;font-size:.95rem;color:#aeaacd}"
+    },
+    {
+      "name": "Metric Tile",
+      "kind": "custom",
+      "refersTo": "metric-tile",
+      "description": "Valor com antes riscado e seta até o novo.",
+      "html": "<div class=\"ds-metric\"><div class=\"ds-metric-label\">Tempo por acúmulo</div><div class=\"ds-metric-value\"><s>15–25 s</s><span class=\"ds-arrow\">→</span>≤ 1 s</div></div>",
+      "css": ".ds-metric{font-family:'Hanken Grotesk Variable',system-ui,sans-serif;background:#15131f;border:1px solid #322f49;border-radius:12px;padding:16px;color:#f3f1ff;font-variant-numeric:tabular-nums lining-nums}.ds-metric-label{font-size:.875rem;color:#aeaacd}.ds-metric-value{margin-top:4px;font-size:1.5rem;font-weight:600}.ds-metric-value s{color:#aeaacd;text-decoration-color:#5ba2ff;text-decoration-thickness:2px}.ds-arrow{margin:0 8px;color:#a58bff}"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Tecnologia de um case.",
+      "html": "<span class=\"ds-chip\">Temporal</span>",
+      "css": ".ds-chip{font-family:'Hanken Grotesk Variable',system-ui,sans-serif;display:inline-block;padding:4px 12px;border-radius:9999px;border:1px solid #322f49;background:#272539;color:#aeaacd;font-size:.875rem}"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "card",
+      "description": "Link do cabeçalho; o sublinhado do ativo cresce da esquerda.",
+      "html": "<a class=\"ds-nav\" href=\"#\" aria-current=\"page\">Início</a>",
+      "css": ".ds-nav{font-family:'Hanken Grotesk Variable',system-ui,sans-serif;position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 12px;color:#f3f1ff;text-decoration:none;font-size:.95rem}.ds-nav::after{content:'';position:absolute;left:12px;right:12px;bottom:6px;height:2px;background:#a58bff;transform-origin:left;transform:scaleX(1);transition:transform 300ms ease-out}.ds-nav:focus-visible{outline:2px solid #5ba2ff;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Straight Dossier",
+    "overview": "O padrão da categoria executado sem enfeite: um portfólio de desenvolvedor em cards, na estrutura do template do Figma, com violeta e azul no lugar do verde. Escuro é o tema de origem, um grafite arroxeado com superfícies elevadas e bordas de 1px. O claro é um lavanda pálido com superfícies brancas. Nada na página existe só para decorar: o peso visual vai para os números reais dos sistemas.\n\nA voz é de quem mostra prova. Títulos em grotesca confiante, texto em humanista calmo, cards de um só nível e um único elemento em movimento, o carrossel de empresas. O gradiente é raro de propósito: aparece no trecho destacado do título e no botão principal, e em mais nenhum lugar.",
+    "keyCharacteristics": [
+      "Dois temas por tokens semânticos; componentes nunca usam cor literal.",
+      "Cards planos: superfície, borda de 1px, sem pilha de sombras.",
+      "Gradiente violeta para azul só no destaque do título e nos botões primários.",
+      "Mobile-first a partir de 360px; alvos de toque de pelo menos 44px.",
+      "Números em `tabular-nums`; monoespaçada não é usada."
+    ],
+    "rules": [
+      {
+        "name": "The Two-Place Gradient Rule",
+        "body": "O gradiente violeta para azul existe em dois lugares: o trecho destacado do h1 e o botão de ação principal. Qualquer outro uso é erro.",
+        "section": "colors"
+      },
+      {
+        "name": "The Token-Only Rule",
+        "body": "Nenhum componente carrega hex, rgb ou classe de paleta crua. Se falta uma cor, nasce um token em global.css.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Numbers Rule",
+        "body": "Métricas, datas e percentuais usam tabular-nums lining-nums. O número é a prova; ele não pode dançar.",
+        "section": "typography"
+      },
+      {
+        "name": "The Balanced Heading Rule",
+        "body": "Todo h1 a h3 usa text-wrap: balance. Quebras ruins se corrigem com espaço não separável, não com <br>.",
+        "section": "typography"
+      },
+      {
+        "name": "The One-Edge Rule",
+        "body": "A elevação se declara uma vez, por borda. Card com borda e sombra larga junto é proibido.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do usar só tokens semânticos (bg-surface, text-muted, border-line) e deixar o tema trocar os valores.",
+      "Do reservar o gradiente ao destaque do título e ao botão de ação principal.",
+      "Do mostrar números reais com tabular-nums, e o antes riscado quando houver comparação.",
+      "Do manter alvos de toque de 44px ou mais e foco visível em accent-2.",
+      "Do gerar logos pelo scripts/optimize-logos.mjs, nunca à mão, para manter o tile uniforme."
+    ],
+    "donts": [
+      "Don't pôr gradiente em ponto de marca, ícone, borda, card ou texto corrente.",
+      "Don't reintroduzir o conceito de renda/fios, descartado pelo usuário.",
+      "Don't empilhar sombra sobre borda, nem aninhar cards.",
+      "Don't usar cor literal, classe de paleta crua, max-*:, vh ou largura fixa de 100px ou mais.",
+      "Don't colocar telefone no HTML público, nem CDN ou rastreador de terceiros."
+    ]
+  }
+}

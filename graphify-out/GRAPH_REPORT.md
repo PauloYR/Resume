@@ -1,13 +1,18 @@
 # Graph Report - paulo-rocha  (2026-10-09)
 
 ## Corpus Check
-- 70 files · ~75,565 words
+- 73 files · ~74,099 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 349 nodes · 409 edges · 31 communities (28 shown, 3 thin omitted)
+- 372 nodes · 429 edges · 33 communities (30 shown, 3 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `00b55196`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - index.astro
@@ -38,6 +43,8 @@
 - Portfólio (todas as páginas)
 - site.spec.ts
 - optimize-logos.mjs
+- Design System: Paulo Rocha
+- ignorePatterns
 
 ## God Nodes (most connected - your core abstractions)
 1. `scripts` - 17 edges
@@ -45,11 +52,11 @@
 3. `rules` - 11 edges
 4. `ignorePatterns` - 9 edges
 5. `paulo-rocha` - 9 edges
-6. `Site` - 8 edges
-7. `UI com Astro + Tailwind 4 (portfólio estático, PT-BR)` - 7 edges
-8. `Tema escuro/claro (roxo + azul)` - 7 edges
-9. `plugins` - 6 edges
-10. `loadGithubActivity()` - 6 edges
+6. `Design System: Paulo Rocha` - 9 edges
+7. `Site` - 8 edges
+8. `UI com Astro + Tailwind 4 (portfólio estático, PT-BR)` - 7 edges
+9. `Tema escuro/claro (roxo + azul)` - 7 edges
+10. `Components` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `getSiteGithubActivity()` --calls--> `loadGithubActivity()`  [EXTRACTED]
@@ -58,23 +65,23 @@
 ## Import Cycles
 - None detected.
 
-## Communities (31 total, 3 thin omitted)
+## Communities (33 total, 3 thin omitted)
 
 ### Community 0 - "index.astro"
-Cohesion: 0.07
-Nodes (27): links, json, Site, canonical, ogImage, GithubActivity, getSiteGithubActivity(), isCurrent() (+19 more)
+Cohesion: 0.08
+Nodes (24): links, json, Site, canonical, ogImage, isCurrent(), nav, NavItem (+16 more)
 
 ### Community 1 - "rules"
-Cohesion: 0.07
-Nodes (29): categories, correctness, suspicious, env, browser, es2024, node, ignorePatterns (+21 more)
+Cohesion: 0.08
+Nodes (25): categories, correctness, suspicious, env, browser, es2024, node, overrides (+17 more)
 
 ### Community 2 - "scripts"
 Cohesion: 0.08
 Nodes (25): allowScripts, esbuild, engines, node, name, private, scripts, astro (+17 more)
 
 ### Community 3 - "github.ts"
-Cohesion: 0.14
-Nodes (16): buildActivity(), cacheSchema, GithubDay, HeatLevel, loadGithubActivity(), LoadOptions, readCache(), responseSchema (+8 more)
+Cohesion: 0.12
+Nodes (19): vitest, buildActivity(), cacheSchema, GithubActivity, GithubDay, HeatLevel, loadGithubActivity(), LoadOptions (+11 more)
 
 ### Community 4 - "devDependencies"
 Cohesion: 0.11
@@ -85,16 +92,16 @@ Cohesion: 0.15
 Nodes (13): cmd, envFile, problems, reader, file, isPolicyFile, problems, rel (+5 more)
 
 ### Community 6 - "dependencies"
-Cohesion: 0.12
-Nodes (17): astro, @astrojs/sitemap, @fontsource-variable/bricolage-grotesque, @fontsource-variable/hanken-grotesk, @fontsource-variable/jetbrains-mono, dependencies, astro, @astrojs/sitemap (+9 more)
+Cohesion: 0.13
+Nodes (15): astro, @astrojs/sitemap, @fontsource-variable/bricolage-grotesque, @fontsource-variable/hanken-grotesk, dependencies, astro, @astrojs/sitemap, @fontsource-variable/bricolage-grotesque (+7 more)
 
 ### Community 7 - "tsconfig.json"
 Cohesion: 0.12
 Nodes (16): **/*, astro/tsconfigs/strict, .astro/types.d.ts, ./src/config/*, ./src/content/*, ./src/lib/*, compilerOptions, noUncheckedIndexedAccess (+8 more)
 
 ### Community 8 - "format.ts"
-Cohesion: 0.21
-Nodes (10): plugins, import, jsx-a11y, promise, typescript, vitest, formatMonth(), formatPeriod() (+2 more)
+Cohesion: 0.48
+Nodes (4): formatMonth(), formatPeriod(), months, yearsBetween()
 
 ### Community 9 - "Product"
 Cohesion: 0.15
@@ -150,7 +157,7 @@ Nodes (4): Componente `GithubActivity.astro`, Fluxo, Painel de uso do GitHub (es
 
 ### Community 22 - "logos.ts"
 Cohesion: 0.20
-Nodes (12): buildClientItems(), buildCompanyItems(), CarouselItem, Client, extensions, FALLBACK_SIZE, findLogo(), Job (+4 more)
+Nodes (13): buildClientItems(), buildCompanyItems(), CarouselItem, Client, extensions, FALLBACK_SIZE, findLogo(), Job (+5 more)
 
 ### Community 24 - "screenshots.mjs"
 Cohesion: 0.50
@@ -160,25 +167,33 @@ Nodes (3): routes, themes, widths
 Cohesion: 0.33
 Nodes (4): logos, MARK, PAD, sizes
 
+### Community 30 - "Design System: Paulo Rocha"
+Cohesion: 0.08
+Nodes (23): Buttons, Cards / Containers, Carrossel de logos (componente de assinatura), Chips, Colors, Components, Design System: Paulo Rocha, Do: (+15 more)
+
+### Community 31 - "ignorePatterns"
+Cohesion: 0.18
+Nodes (9): ignorePatterns, dist, .agents, .astro, .claude/skills, graphify-out, node_modules, playwright-report (+1 more)
+
 ## Knowledge Gaps
-- **200 isolated node(s):** `cmd`, `problems`, `envFile`, `reader`, `file` (+195 more)
+- **214 isolated node(s):** `cmd`, `problems`, `envFile`, `reader`, `file` (+209 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `vitest` connect `format.ts` to `github.ts`, `logos.ts`?**
-  _High betweenness centrality (0.060) - this node is a cross-community bridge._
-- **Why does `plugins` connect `format.ts` to `rules`?**
-  _High betweenness centrality (0.057) - this node is a cross-community bridge._
+- **Why does `vitest` connect `github.ts` to `format.ts`, `rules`, `logos.ts`?**
+  _High betweenness centrality (0.055) - this node is a cross-community bridge._
+- **Why does `plugins` connect `rules` to `github.ts`?**
+  _High betweenness centrality (0.052) - this node is a cross-community bridge._
 - **What connects `cmd`, `problems`, `envFile` to the rest of the system?**
-  _200 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _214 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `index.astro` be split into smaller, more focused modules?**
-  _Cohesion score 0.07039187227866474 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07535460992907801 - nodes in this community are weakly interconnected._
 - **Should `rules` be split into smaller, more focused modules?**
-  _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._
 - **Should `scripts` be split into smaller, more focused modules?**
   _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._
 - **Should `github.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.14210526315789473 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12318840579710146 - nodes in this community are weakly interconnected._

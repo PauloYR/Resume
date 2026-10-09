@@ -19,8 +19,11 @@ const logos = [
   {
     slug: 'banco-original',
     src: 'banco original.jpg',
-    bg: 'auto',
+    bg: '#ffffff',
+    fuzz: 10,
     crop: '520x170+152+162',
+    // Light mark on a dark source: rebuild it as a solid color on white so it reads on both themes.
+    knockout: '#078a4b',
   },
   { slug: 'boa-safra', src: 'boa-safra.png', bg: '#ffffff' },
   { slug: 'heineken', src: 'heineken.png', bg: '#ffffff', fuzz: 2 },
@@ -57,6 +60,26 @@ for (const logo of logos) {
   }
 
   const pre = logo.crop ? ['-crop', logo.crop, '+repage'] : [];
+  if (logo.knockout) {
+    // The green channel carries the mark; level it into a mask, then paint it over white.
+    const ko = `/tmp/${logo.slug}-knockout.png`;
+    run('magick', [
+      input,
+      ...pre,
+      '-channel',
+      'G',
+      '-separate',
+      '+channel',
+      '-level',
+      '16%,60%',
+      '-negate',
+      '+level-colors',
+      `${logo.knockout},white`,
+      ko,
+    ]);
+    input = ko;
+    pre.length = 0;
+  }
   const bg =
     logo.bg === 'auto'
       ? run('magick', [input, ...pre, '-format', '%[pixel:p{3,3}]', 'info:'])

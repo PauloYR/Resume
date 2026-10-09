@@ -24,8 +24,18 @@ const { items } = Astro.props;
       <div class="md:col-span-9">
         <h3 class="font-display text-xl font-semibold md:text-2xl">
           {item.role}
-          <span class="text-muted"> · {item.company}</span>
-          {item.client && <span class="text-muted"> ({item.client})</span>}
+          <span class="block text-muted md:inline">
+            <span class="hidden md:inline" aria-hidden="true">
+              {' '}
+              ·{' '}
+            </span>
+            {item.company}
+          </span>
+          {item.client && (
+            <span class="block text-muted md:inline">
+              <span class="hidden md:inline"> </span>({item.client})
+            </span>
+          )}
         </h3>
         <p class="mt-1 max-w-[60ch] text-muted">{item.summary}</p>
         <p class="mt-1 text-sm text-muted">{item.location}</p>
