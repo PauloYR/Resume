@@ -1,16 +1,16 @@
 # Graph Report - paulo-rocha  (2026-10-09)
 
 ## Corpus Check
-- 73 files · ~74,099 words
+- 81 files · ~77,872 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 372 nodes · 429 edges · 33 communities (30 shown, 3 thin omitted)
+- 396 nodes · 458 edges · 36 communities (32 shown, 4 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `00b55196`
+- Built from commit: `c7ea17ca`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -45,6 +45,9 @@
 - optimize-logos.mjs
 - Design System: Paulo Rocha
 - ignorePatterns
+- tech-icons.ts
+- build-tech-icons.mjs
+- vercel.json
 
 ## God Nodes (most connected - your core abstractions)
 1. `scripts` - 17 edges
@@ -54,9 +57,9 @@
 5. `paulo-rocha` - 9 edges
 6. `Design System: Paulo Rocha` - 9 edges
 7. `Site` - 8 edges
-8. `UI com Astro + Tailwind 4 (portfólio estático, PT-BR)` - 7 edges
-9. `Tema escuro/claro (roxo + azul)` - 7 edges
-10. `Components` - 7 edges
+8. `Components` - 8 edges
+9. `UI com Astro + Tailwind 4 (portfólio estático, PT-BR)` - 7 edges
+10. `Tema escuro/claro (roxo + azul)` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `getSiteGithubActivity()` --calls--> `loadGithubActivity()`  [EXTRACTED]
@@ -65,11 +68,11 @@
 ## Import Cycles
 - None detected.
 
-## Communities (33 total, 3 thin omitted)
+## Communities (36 total, 4 thin omitted)
 
 ### Community 0 - "index.astro"
-Cohesion: 0.08
-Nodes (24): links, json, Site, canonical, ogImage, isCurrent(), nav, NavItem (+16 more)
+Cohesion: 0.07
+Nodes (26): links, json, Site, canonical, ogImage, isCurrent(), nav, NavItem (+18 more)
 
 ### Community 1 - "rules"
 Cohesion: 0.08
@@ -80,12 +83,12 @@ Cohesion: 0.08
 Nodes (25): allowScripts, esbuild, engines, node, name, private, scripts, astro (+17 more)
 
 ### Community 3 - "github.ts"
-Cohesion: 0.12
-Nodes (19): vitest, buildActivity(), cacheSchema, GithubActivity, GithubDay, HeatLevel, loadGithubActivity(), LoadOptions (+11 more)
+Cohesion: 0.10
+Nodes (21): vitest, buildActivity(), cacheSchema, GithubActivity, GithubDay, HeatLevel, loadGithubActivity(), LoadOptions (+13 more)
 
 ### Community 4 - "devDependencies"
-Cohesion: 0.11
-Nodes (19): @astrojs/check, lefthook, oxlint, devDependencies, @astrojs/check, lefthook, oxlint, @playwright/test (+11 more)
+Cohesion: 0.10
+Nodes (21): @astrojs/check, lefthook, oxlint, devDependencies, @astrojs/check, lefthook, oxlint, @playwright/test (+13 more)
 
 ### Community 5 - "guard-write.mjs"
 Cohesion: 0.15
@@ -140,8 +143,8 @@ Cohesion: 0.33
 Nodes (5): Checklist por mudança, Ferramentas já ligadas, Leis (sem exceção, sem "só pra testar"), Privacidade (site público de uma pessoa real), Segurança web e privacidade (lei do projeto)
 
 ### Community 18 - "paulo-rocha"
-Cohesion: 0.29
-Nodes (6): Logos das empresas e clientes, Onde trocar os dados, paulo-rocha, Qualidade, Rodando, Variáveis de ambiente (build)
+Cohesion: 0.25
+Nodes (7): Logos das empresas e clientes, Logos de tecnologias (seção "O que eu uso"), Onde trocar os dados, paulo-rocha, Qualidade, Rodando, Variáveis de ambiente (build)
 
 ### Community 19 - "build-og.mjs"
 Cohesion: 0.33
@@ -169,31 +172,39 @@ Nodes (4): logos, MARK, PAD, sizes
 
 ### Community 30 - "Design System: Paulo Rocha"
 Cohesion: 0.08
-Nodes (23): Buttons, Cards / Containers, Carrossel de logos (componente de assinatura), Chips, Colors, Components, Design System: Paulo Rocha, Do: (+15 more)
+Nodes (24): Buttons, Cards / Containers, Carrossel de logos (componente de assinatura), Chips, Colors, Components, Design System: Paulo Rocha, Do: (+16 more)
 
 ### Community 31 - "ignorePatterns"
 Cohesion: 0.18
 Nodes (9): ignorePatterns, dist, .agents, .astro, .claude/skills, graphify-out, node_modules, playwright-report (+1 more)
 
+### Community 32 - "tech-icons.ts"
+Cohesion: 0.36
+Nodes (3): TechChip, techIconSlugs, toChip()
+
+### Community 34 - "build-tech-icons.mjs"
+Cohesion: 0.50
+Nodes (3): bySlug, mapSource, slugs
+
 ## Knowledge Gaps
-- **214 isolated node(s):** `cmd`, `problems`, `envFile`, `reader`, `file` (+209 more)
+- **226 isolated node(s):** `cmd`, `problems`, `envFile`, `reader`, `file` (+221 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `vitest` connect `github.ts` to `format.ts`, `rules`, `logos.ts`?**
-  _High betweenness centrality (0.055) - this node is a cross-community bridge._
+- **Why does `vitest` connect `github.ts` to `format.ts`, `rules`, `tech-icons.ts`, `logos.ts`?**
+  _High betweenness centrality (0.058) - this node is a cross-community bridge._
 - **Why does `plugins` connect `rules` to `github.ts`?**
   _High betweenness centrality (0.052) - this node is a cross-community bridge._
 - **What connects `cmd`, `problems`, `envFile` to the rest of the system?**
-  _214 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _226 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `index.astro` be split into smaller, more focused modules?**
-  _Cohesion score 0.07535460992907801 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07312925170068027 - nodes in this community are weakly interconnected._
 - **Should `rules` be split into smaller, more focused modules?**
   _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._
 - **Should `scripts` be split into smaller, more focused modules?**
   _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._
 - **Should `github.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.12318840579710146 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.10317460317460317 - nodes in this community are weakly interconnected._

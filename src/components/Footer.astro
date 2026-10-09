@@ -34,7 +34,21 @@ const links = [
 
 <footer class="print:hidden mt-24 border-t border-line">
   <div class="container-page flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between">
-    <p class="text-sm text-muted">{copyright}</p>
+    <div class="grid gap-2 text-sm text-muted">
+      <p>{copyright}</p>
+      <p>
+        Gopher: arte de Renée French, vetor de Takuya Ueda,{' '}
+        <a
+          href="https://creativecommons.org/licenses/by/3.0/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="underline decoration-accent-2 underline-offset-4 hover:text-fg"
+        >
+          CC BY 3.0
+        </a>
+        .
+      </p>
+    </div>
     <ul class="flex flex-wrap gap-2">
       {links.map((link) => (
         <li>

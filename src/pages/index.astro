@@ -12,14 +12,16 @@ import StackList from '../components/StackList.astro';
 import Contact from '../components/Contact.astro';
 import GithubActivity from '../components/GithubActivity.astro';
 import { getSiteGithubActivity } from '@lib/github-site';
+import { buildGopherLines } from '@lib/gopher-lines';
 import { buildClientItems, buildCompanyItems } from '@lib/logos';
 
 const origin = Astro.site?.toString() ?? 'http://localhost:4321';
 
-const cases = (await getCollection('cases'))
+const allCases = (await getCollection('cases'))
   .map((entry) => entry.data)
-  .sort((a, b) => a.order - b.order)
-  .slice(0, 3);
+  .sort((a, b) => a.order - b.order);
+const cases = allCases.slice(0, 3);
+const gopherLines = buildGopherLines(allCases);
 const experience = (await getCollection('experience'))
   .map((entry) => ({ id: entry.id, ...entry.data }))
   .sort((a, b) => b.period.start.localeCompare(a.period.start));
@@ -90,7 +92,7 @@ const description = `${site.name}, engenheiro de software sênior em Fortaleza-C
 
   <section class="py-12 md:py-20" aria-labelledby="stack">
     <SectionHead id="stack" title="O que eu uso" />
-    <StackList groups={skills} />
+    <StackList groups={skills} gopherLines={gopherLines} />
   </section>
 
   {githubActivity && (

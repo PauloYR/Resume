@@ -178,7 +178,7 @@ Cards de 14px de raio; blocos de métrica de 12px; tiles de logo de 16px; botõe
 ### Chips
 
 - **Style:** fundo `surface-2`, texto `muted`, borda de 1px, pílula, 14px.
-- **State:** estáticos; listam tecnologias de cada case.
+- **State:** estáticos; listam tecnologias de cada case. Na seção de stack o chip leva o logo da tecnologia (20px, monocromático em `accent` via máscara) antes do nome; sem logo, só o texto.
 
 ### Cards / Containers
 
@@ -195,7 +195,11 @@ Cabeçalho fixo com marca, links centrais no desktop, botão de tema e menu em c
 
 ### Carrossel de logos (componente de assinatura)
 
-Faixa que desliza a 42s, em duas listas, com borda esmaecida por máscara alfa. Pausa no hover e no foco; com `prefers-reduced-motion` vira uma grade estática. Cada logo traz o nome em legenda de 12px, presa à largura do tile. É o único elemento em movimento da página.
+Faixa que desliza a 42s, em duas listas, com borda esmaecida por máscara alfa. Pausa no hover e no foco; com `prefers-reduced-motion` vira uma grade estática. Cada logo traz o nome em legenda de 12px, presa à largura do tile. É o único elemento que se move sozinho na página.
+
+### Gopher (stack)
+
+Botão de 44px ou mais com o gopher oficial (Renée French, vetor de Takuya Ueda, CC BY 3.0, crédito no rodapé), ao lado do chip de Go. Ao tocar, dá um pulo curto de transform e um balão mostra uma métrica real dos cases. Só se move por ação da pessoa; com `prefers-reduced-motion` o pulo some e o balão continua trocando de texto.
 
 ## Do's and Don'ts
 

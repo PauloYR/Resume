@@ -1,0 +1,36 @@
+---
+import type { TechChip } from '@lib/tech-icons';
+
+interface Props {
+  chip: TechChip;
+}
+const { chip } = Astro.props;
+
+const icons = import.meta.glob<string>('../assets/tech/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
+const icon = chip.slug ? icons[`../assets/tech/${chip.slug}.svg`] : undefined;
+---
+
+<li class="inline-flex min-h-9 items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1.5 text-sm text-fg">
+  {icon && (
+    <span
+      class="tech-icon size-5 shrink-0 text-accent"
+      style={`--icon: url(${JSON.stringify(icon)})`}
+      aria-hidden="true"
+    />
+  )}
+  <span>
+    {chip.name}
+    {chip.detail && <span class="text-muted"> ({chip.detail})</span>}
+  </span>
+</li>
+
+<style>
+  .tech-icon {
+    background-color: currentColor;
+    mask: var(--icon) center / contain no-repeat;
+  }
+</style>

@@ -95,3 +95,28 @@ test('mobile menu opens and closes with Escape', async ({ page, isMobile }) => {
   await page.keyboard.press('Escape');
   await expect(page.locator('#mobile-menu')).toBeHidden();
 });
+
+test.describe('stack section', () => {
+  test('shows tech chips with names and an interactive gopher', async ({
+    page,
+  }) => {
+    await page.goto('/');
+    const stack = page.locator('section[aria-labelledby="stack"]');
+    await expect(stack.getByText('PostgreSQL')).toBeVisible();
+    await expect(stack.locator('.tech-icon').first()).toBeVisible();
+
+    const line = stack.locator('[data-gopher-line]');
+    const before = await line.textContent();
+    await stack.getByRole('button', { name: /gopher/i }).click();
+    await expect(line).not.toHaveText(before ?? '');
+  });
+
+  test('has no horizontal scroll at 320px', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto('/');
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - window.innerWidth,
+    );
+    expect(overflow).toBeLessThanOrEqual(0);
+  });
+});

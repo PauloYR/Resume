@@ -28,6 +28,13 @@ npm run test:e2e       # Playwright (precisa de dist/ já buildado)
 
 O identificador é o `id` da vaga em `src/content/experience.json` (empresas) ou o `id` em `src/content/clients.json` (clientes). Sem logo, o carrossel mostra o nome em texto.
 
+### Logos de tecnologias (seção "O que eu uso")
+
+1. Em `src/lib/tech-icons.ts`, mapeie o item de `skills.json` para o slug do [Simple Icons](https://simpleicons.org).
+2. Rode `node scripts/build-tech-icons.mjs`: copia os SVGs usados para `src/assets/tech/`.
+
+Item sem mapeamento aparece como chip só de texto. O gopher (`src/assets/gopher.svg`) é CC BY 3.0 e o crédito fica no rodapé.
+
 O mesmo conteúdo alimenta o site, o JSON-LD de SEO e o PDF do currículo. O telefone não aparece no HTML público.
 
 ## Variáveis de ambiente (build)

@@ -1,0 +1,99 @@
+---
+import gopher from '../assets/gopher.svg';
+
+interface Props {
+  /** Short phrases shown one at a time when the gopher is pressed. */
+  lines: string[];
+}
+const { lines } = Astro.props;
+const greeting = 'Oi, eu sou o gopher do Go. Toque em mim.';
+---
+
+<div
+  class="flex items-center gap-4"
+  data-gopher
+  data-lines={JSON.stringify(lines)}
+>
+  <button
+    type="button"
+    class="gopher-btn min-h-11 min-w-11 shrink-0 rounded-2xl border border-line bg-surface-2 p-2 transition-colors hover:border-accent"
+    aria-label="Gopher do Go: toque para ver um resultado"
+  >
+    <img
+      src={gopher.src}
+      alt=""
+      width="215"
+      height="281"
+      loading="lazy"
+      decoding="async"
+      class="h-20 w-auto md:h-24"
+    />
+  </button>
+  <p
+    class="rounded-xl border border-line bg-surface px-4 py-3 text-sm text-muted"
+    role="status"
+    aria-live="polite"
+    data-gopher-line
+  >
+    {greeting}
+  </p>
+</div>
+
+<style>
+  .gopher-btn img {
+    transform-origin: 50% 100%;
+  }
+  .gopher-btn.is-hopping img {
+    animation: gopher-hop 320ms ease-out;
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .gopher-btn:hover img {
+      transform: rotate(-4deg);
+      transition: transform 200ms ease-out;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gopher-btn.is-hopping img {
+      animation: none;
+    }
+  }
+  @keyframes gopher-hop {
+    40% {
+      transform: translateY(-10px) rotate(-3deg);
+    }
+    100% {
+      transform: translateY(0) rotate(0);
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gopher]').forEach((root) => {
+    const button = root.querySelector('button');
+    const output = root.querySelector('[data-gopher-line]');
+    if (!button || !output) return;
+
+    let lines: string[] = [];
+    try {
+      const parsed: unknown = JSON.parse(root.dataset.lines ?? '[]');
+      lines = Array.isArray(parsed)
+        ? parsed.filter((line): line is string => typeof line === 'string')
+        : [];
+    } catch {
+      lines = [];
+    }
+    if (lines.length === 0) return;
+
+    let index = -1;
+    button.addEventListener('click', () => {
+      index = (index + 1) % lines.length;
+      output.textContent = lines[index] ?? '';
+      button.classList.remove('is-hopping');
+      void button.offsetWidth;
+      button.classList.add('is-hopping');
+    });
+    button.addEventListener('animationend', () => {
+      button.classList.remove('is-hopping');
+    });
+  });
+</script>
