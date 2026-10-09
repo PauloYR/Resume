@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Página não encontrada | Paulo Rocha"
+  description="A página que você procura não existe."
+  noindex
+>
+  <section class="pt-10 pb-24 md:pt-20" aria-labelledby="titulo">
+    <h1
+      id="titulo"
+      class="text-[clamp(2.75rem,11vw,6.5rem)] font-bold leading-[0.95]"
+    >
+      Página não encontrada
+    </h1>
+    <p class="mt-6 max-w-[46ch] text-lg text-muted">
+      O endereço não existe ou mudou. Volte ao início para continuar.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-flex min-h-12 items-center rounded-full bg-brand px-8 font-semibold"
+    >
+      Voltar ao início
+    </a>
+  </section>
+</Base>

@@ -1,0 +1,52 @@
+---
+import { site } from '@config/site';
+import Icon from './Icon.astro';
+---
+
+<section class="pt-4" aria-labelledby="contato">
+  <h2
+    id="contato"
+    class="max-w-[16ch] text-[clamp(2.4rem,9vw,5rem)] font-bold leading-[0.98]"
+  >
+    Vamos conversar sobre o seu backend?
+  </h2>
+  <p class="mt-4 max-w-[46ch] text-muted">
+    {site.availability}. Respondo por e-mail ou LinkedIn.
+  </p>
+
+  <div class="mt-10 flex flex-col items-start gap-6">
+    <a
+      href={`mailto:${site.email}`}
+      class="group inline-flex min-h-14 items-center gap-3 rounded-full bg-brand px-8 text-lg font-semibold transition-transform duration-300 ease-out hover:-translate-y-0.5"
+    >
+      <Icon name="mail" />
+      Enviar e-mail
+    </a>
+    <ul class="flex flex-wrap gap-x-6 gap-y-2">
+      <li>
+        <a
+          href={site.linkedin}
+          target="_blank"
+          rel="me noopener noreferrer"
+          class="inline-flex min-h-11 items-center gap-2 text-fg underline decoration-accent-2 decoration-2 underline-offset-4"
+        >
+          <Icon name="linkedin" class="size-5" />
+          LinkedIn
+        </a>
+      </li>
+      {site.github && (
+        <li>
+          <a
+            href={site.github}
+            target="_blank"
+            rel="me noopener noreferrer"
+            class="inline-flex min-h-11 items-center gap-2 text-fg underline decoration-accent-2 decoration-2 underline-offset-4"
+          >
+            <Icon name="github" class="size-5" />
+            GitHub
+          </a>
+        </li>
+      )}
+    </ul>
+  </div>
+</section>

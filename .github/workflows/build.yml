@@ -1,0 +1,39 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Daily rebuild keeps the GitHub activity panel fresh.
+    - cron: '17 6 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - name: Build site
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          GITHUB_USER: ${{ vars.GITHUB_USER }}
+          GITHUB_TOKEN: ${{ secrets.GH_STATS_TOKEN }}
+        run: npm run build
+      - run: npm run pdf
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist

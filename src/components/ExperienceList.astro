@@ -1,0 +1,35 @@
+---
+import { formatPeriod } from '@lib/format';
+
+interface Props {
+  items: {
+    id: string;
+    role: string;
+    company: string;
+    client?: string;
+    period: { start: string; end: string | null };
+    location: string;
+    summary: string;
+  }[];
+}
+const { items } = Astro.props;
+---
+
+<ol class="tabular">
+  {items.map((item) => (
+    <li class="grid gap-1 border-t border-line py-6 md:grid-cols-12 md:gap-8">
+      <p class="text-sm text-muted md:col-span-3 md:pt-1">
+        {formatPeriod(item.period)}
+      </p>
+      <div class="md:col-span-9">
+        <h3 class="font-display text-xl font-semibold md:text-2xl">
+          {item.role}
+          <span class="text-muted"> · {item.company}</span>
+          {item.client && <span class="text-muted"> ({item.client})</span>}
+        </h3>
+        <p class="mt-1 max-w-[60ch] text-muted">{item.summary}</p>
+        <p class="mt-1 text-sm text-muted">{item.location}</p>
+      </div>
+    </li>
+  ))}
+</ol>

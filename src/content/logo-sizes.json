@@ -1,0 +1,46 @@
+{
+  "mobiup": {
+    "width": 404,
+    "height": 148
+  },
+  "g4f": {
+    "width": 404,
+    "height": 148
+  },
+  "gft": {
+    "width": 321,
+    "height": 148
+  },
+  "gfx": {
+    "width": 274,
+    "height": 148
+  },
+  "banco-original": {
+    "width": 361,
+    "height": 148
+  },
+  "boa-safra": {
+    "width": 289,
+    "height": 148
+  },
+  "heineken": {
+    "width": 404,
+    "height": 148
+  },
+  "nuclea": {
+    "width": 404,
+    "height": 148
+  },
+  "pepsi": {
+    "width": 188,
+    "height": 148
+  },
+  "sistema-verdes-mares": {
+    "width": 273,
+    "height": 148
+  },
+  "sorocaba-refrescos": {
+    "width": 215,
+    "height": 148
+  }
+}

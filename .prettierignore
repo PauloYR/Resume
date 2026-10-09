@@ -1,0 +1,6 @@
+# Vendored third-party skills (installed via `npx skills add`); keep byte-identical to upstream
+.agents/
+skills-lock.json
+
+# graphify knowledge graph (generated output; only GRAPH_REPORT.md is versioned)
+graphify-out/

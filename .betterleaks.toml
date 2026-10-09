@@ -1,0 +1,3 @@
+# Extends the built-in ruleset. Only allowlist true false-positives, never real secrets.
+[extend]
+useDefault = true

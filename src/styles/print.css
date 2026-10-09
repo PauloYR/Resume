@@ -1,0 +1,95 @@
+/* Resume print/PDF styles: always light, A4, single column, no chrome. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  :root:root[data-theme] {
+    color-scheme: light;
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f3f3f3;
+    --border: #bbbbbb;
+    --fg: #111111;
+    --muted: #444444;
+    --accent: #4c28b8;
+    --accent-2: #1850b8;
+  }
+
+  html,
+  body {
+    background: #ffffff;
+    font-size: 9.5pt;
+    line-height: 1.35;
+  }
+
+  .container-page {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  .resume {
+    padding-bottom: 0;
+  }
+
+  .resume section {
+    padding-block: 0;
+  }
+
+  .resume h1 {
+    margin-top: 0;
+  }
+
+  .resume ul,
+  .resume dl,
+  .resume p {
+    margin-top: 3pt;
+  }
+
+  .resume ul > li {
+    margin-block: 0;
+  }
+
+  .resume article > div,
+  .resume .grid {
+    gap: 6pt;
+  }
+
+  .resume h1 {
+    font-size: 22pt;
+    line-height: 1.05;
+  }
+
+  .resume h2 {
+    font-size: 11pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #111111;
+    padding-bottom: 2pt;
+    margin-bottom: 6pt;
+  }
+
+  .resume section {
+    break-inside: auto;
+    margin-top: 9pt;
+  }
+
+  .resume article {
+    break-inside: auto;
+  }
+
+  .resume h2,
+  .resume h3 {
+    break-after: avoid;
+  }
+
+  .resume li {
+    break-inside: avoid;
+  }
+
+  .resume a {
+    color: #111111;
+    text-decoration: none;
+  }
+}

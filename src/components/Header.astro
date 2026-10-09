@@ -1,0 +1,105 @@
+---
+import { site } from '@config/site';
+import { isCurrent, nav } from '@lib/nav';
+import ThemeToggle from './ThemeToggle.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+---
+
+<header class="print:hidden sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur-sm">
+  <div class="container-page flex items-center justify-between gap-2 py-2">
+    <a
+      href="/"
+      class="flex min-h-11 items-center gap-2 font-display text-lg font-semibold tracking-tight"
+      aria-label={`${site.name}, página inicial`}
+    >
+      <span class="size-2.5 rounded-full bg-brand" aria-hidden="true"></span>
+      {site.name}
+    </a>
+
+    <nav aria-label="Principal" class="hidden items-center gap-1 md:flex">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isCurrent(current, item.href) ? 'page' : undefined}
+          class="group relative inline-flex min-h-11 items-center px-3 text-[0.95rem] text-muted transition-colors hover:text-fg aria-[current=page]:text-fg"
+        >
+          {item.label}
+          <span
+            class="absolute inset-x-3 bottom-1.5 h-0.5 origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-aria-[current=page]:scale-x-100 group-hover:scale-x-100"
+            aria-hidden="true"
+          />
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <ThemeToggle />
+      <button
+        type="button"
+        data-menu-button
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="inline-flex size-11 items-center justify-center rounded-full border border-line text-fg active:bg-surface-2 md:hidden"
+        aria-label="Abrir menu"
+      >
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+
+  <nav
+    id="mobile-menu"
+    aria-label="Principal (menu)"
+    hidden
+    class="border-t border-line bg-bg md:hidden"
+  >
+    <ul class="container-page py-2">
+      {nav.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            aria-current={isCurrent(current, item.href) ? 'page' : undefined}
+            class="flex min-h-12 items-center justify-between border-b border-line text-lg text-muted aria-[current=page]:text-fg"
+          >
+            {item.label}
+            <Icon name="arrow" class="size-4" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const button =
+    document.querySelector<HTMLButtonElement>('[data-menu-button]');
+  const menu = document.getElementById('mobile-menu');
+
+  function setOpen(open: boolean) {
+    if (!button || !menu) return;
+    menu.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+    button.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+  }
+
+  button?.addEventListener('click', () =>
+    setOpen(button.getAttribute('aria-expanded') !== 'true'),
+  );
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Escape' &&
+      button?.getAttribute('aria-expanded') === 'true'
+    ) {
+      setOpen(false);
+      button.focus();
+    }
+  });
+  menu
+    ?.querySelectorAll('a')
+    .forEach((link) => link.addEventListener('click', () => setOpen(false)));
+</script>

@@ -1,0 +1,49 @@
+# build output
+dist/
+# generated types and caches
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+*.log
+
+# environment variables and secrets (only .env.example is versioned)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+
+# test, coverage and scanner output
+coverage/
+.vitest/
+diagnostics/
+playwright-report/
+test-results/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# Claude Code local overrides
+.claude/settings.local.json
+
+# graphify knowledge graph (regenerable via `graphify update .`)
+graphify-out/*
+!graphify-out/GRAPH_REPORT.md
+
+# impeccable review captures and decision mocks (regenerable)
+.impeccable/review/
+.impeccable/mocks/

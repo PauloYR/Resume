@@ -1,0 +1,110 @@
+---
+import type { CarouselItem } from '@lib/logos';
+
+interface Props {
+  items: CarouselItem[];
+  label: string;
+  reverse?: boolean;
+}
+const { items, label, reverse = false } = Astro.props;
+const lists = [{ hidden: false }, { hidden: true }];
+---
+
+<div class="carousel overflow-hidden py-2" role="region" aria-label={label}>
+  <div
+    class:list={['carousel-track flex w-max', reverse && 'carousel-reverse']}
+  >
+    {lists.map(({ hidden }, index) => (
+      <ul
+        class:list={[
+          'flex shrink-0 items-start gap-4 pr-4',
+          index === 1 && 'carousel-copy',
+        ]}
+        aria-hidden={hidden ? 'true' : undefined}
+      >
+        {items.map((item) => (
+          <li
+            class="flex shrink-0 flex-col items-center gap-2"
+            title={item.via ? `${item.name}, via ${item.via}` : item.name}
+          >
+            {item.logo ? (
+              <>
+                <img
+                  src={item.logo.src}
+                  alt={
+                    item.via
+                      ? `${item.name}, cliente via ${item.via}`
+                      : item.name
+                  }
+                  width={item.logo.width}
+                  height={item.logo.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="h-16 w-auto rounded-2xl border border-line md:h-20"
+                />
+                {/* w-0 + min-w-full: the caption wraps inside the logo's width and never widens the tile. */}
+                <span
+                  class="w-0 min-w-full text-center text-xs leading-tight text-muted md:text-sm"
+                  aria-hidden="true"
+                >
+                  {item.name}
+                </span>
+              </>
+            ) : (
+              <span class="flex h-16 items-center whitespace-nowrap rounded-2xl border border-line bg-surface px-6 font-display text-lg font-semibold md:h-20 md:text-2xl">
+                {item.name}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>
+
+<style>
+  .carousel {
+    /* Alpha mask only (fades the edges); not a theme color. */
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+  }
+  .carousel-track {
+    animation: slide 42s linear infinite;
+  }
+  .carousel-reverse {
+    animation-direction: reverse;
+  }
+  .carousel:hover .carousel-track,
+  .carousel:focus-within .carousel-track {
+    animation-play-state: paused;
+  }
+  @keyframes slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .carousel {
+      mask-image: none;
+    }
+    .carousel-track {
+      animation: none;
+      display: block;
+      width: auto;
+    }
+    .carousel-track > ul {
+      flex-wrap: wrap;
+      flex-shrink: 1;
+      gap: 0.75rem;
+      padding-right: 0;
+    }
+    .carousel-copy {
+      display: none;
+    }
+  }
+</style>

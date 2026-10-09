@@ -1,0 +1,89 @@
+[
+  {
+    "id": "mobiup",
+    "role": "Senior Backend Engineer (Go)",
+    "company": "Mobiup – Beyond Digital",
+    "period": { "start": "2023-06", "end": "2026-09" },
+    "location": "São Paulo, Brasil · Remoto",
+    "summary": "Plataforma financeira (pagamentos, assinaturas e pontos). Time de 8 devs; 18 microsserviços mantidos.",
+    "bullets": [
+      "Otimizei o motor de pontos (Go, MySQL, Redis, Asynq, SQS), sustentando pico de 588 acúmulos/s e 99,9% de processamento em 1,2 milhão de acúmulos.",
+      "Reduzi de 15–25 s para no máximo 1 s o processamento de acúmulos de clientes com várias tags, com profiling (pprof), cache de tags e regras e consolidação de chamadas.",
+      "Construí microsserviços em Go (REST com Swagger/OpenAPI e gRPC) com Clean Architecture, Hexagonal, Fx, Keycloak e OPA; modelei dados em MySQL e MongoDB.",
+      "Integrei a Rede (Itaú) para cobrança recorrente em cartão, com idempotência, reconciliação e retentativas seletivas, e PIX via Bradesco com webhook.",
+      "Mantive o serviço de assinaturas (Go, MongoDB, Temporal, SQS): 4,1 mil assinaturas, 98,1% de sucesso e migração de ~2,5 mil contratos do legado sem indisponibilidade.",
+      "Participei da decisão por SNS, SQS e Temporal em arquitetura orientada a eventos (emissão de nota fiscal com SAP); a trilha de steps dos workflows dispensava abrir logs.",
+      "Implementei criptografia de dados de cartão (PAN) com AWS KMS antes da persistência, com chave em HSM, acesso por IAM e auditoria no CloudTrail.",
+      "Instrumentei os microsserviços com OpenTelemetry e usei logs e traces no Grafana para manutenção preventiva, identificando problemas antes de o cliente perceber.",
+      "Defini padrões adotados pelo time de 8 devs (estrutura de microsserviço, skills e hooks de IA, trilha de steps) e mentorei devs com onboarding, pareamento e code review.",
+      "Escrevi testes de unidade (moq) e integração (Testcontainers), com meta de 80%+ de cobertura, em pipelines rápidas (GitHub Actions, Bitbucket) que validam cada deploy.",
+      "Atuei em squad ágil (Scrum e Kanban): sprints, dailys, estimativas com planning poker e quadro de entregas no Trello e Planka.",
+      "Utilizei IA no desenvolvimento: agentes em paralelo, git worktrees, dev containers e hooks (lint e testes) que validam padrões de arquitetura.",
+      "Desenvolvi funcionalidades no app Android da plataforma (Kotlin, MVVM, Koin, Room, Retrofit)."
+    ],
+    "stack": [
+      "Go",
+      "MySQL",
+      "MongoDB",
+      "Redis",
+      "Asynq",
+      "SQS",
+      "SNS",
+      "Temporal",
+      "gRPC",
+      "OpenTelemetry",
+      "Grafana",
+      "AWS KMS",
+      "Keycloak",
+      "OPA"
+    ]
+  },
+  {
+    "id": "g4f",
+    "role": "Desenvolvedor Flutter",
+    "company": "G4F",
+    "period": { "start": "2023-04", "end": "2023-06" },
+    "location": "Fortaleza, CE",
+    "summary": "Aplicativo de mobilidade urbana.",
+    "bullets": [
+      "Criei um novo aplicativo em Flutter voltado à mobilidade urbana."
+    ],
+    "stack": ["Flutter"]
+  },
+  {
+    "id": "gft",
+    "role": "Desenvolvedor Android",
+    "company": "Grupo GFT",
+    "client": "Banco Original",
+    "period": { "start": "2021-08", "end": "2023-03" },
+    "location": "Remoto",
+    "summary": "App bancário nativo em Kotlin com arquitetura multimódulo.",
+    "bullets": [
+      "Implementei funcionalidades e corrigi bugs em app bancário com Kotlin, arquitetura multimódulo, MVVM, Clean Architecture, Coroutines, Flow e Jetpack.",
+      "Realizei tagueamento de eventos com Firebase e Oracle Infinity."
+    ],
+    "stack": [
+      "Kotlin",
+      "MVVM",
+      "Clean Architecture",
+      "Coroutines",
+      "Flow",
+      "Jetpack"
+    ]
+  },
+  {
+    "id": "gfx",
+    "role": "Full Stack Developer",
+    "company": "GFX Consultoria",
+    "period": { "start": "2018-08", "end": "2021-08" },
+    "location": "Fortaleza, CE",
+    "summary": "Apps Android nativos, APIs REST em Node.js e sites em React. Começou como Mobile Developer (ago/2018 – nov/2018) com apps Cielo Lio e ABAP.",
+    "bullets": [
+      "Programei apps Android nativos em Java e apps com Cielo SDK para recebimento e pagamento (SQLite, Retrofit, MVP).",
+      "Realizei a publicação de aplicativos Android nativos na Play Store (Google Play).",
+      "Estruturei APIs REST em TypeScript/Node.js com MongoDB (Mongoose), Express, Restify e JWT.",
+      "Desenvolvi sites em React com Axios, Redux e Hooks."
+    ],
+    "stack": ["Java", "Android", "TypeScript", "Node.js", "MongoDB", "React"]
+  }
+]

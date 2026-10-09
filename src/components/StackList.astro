@@ -1,0 +1,15 @@
+---
+interface Props {
+  groups: { id: string; label: string; items: string[] }[];
+}
+const { groups } = Astro.props;
+---
+
+<dl class="grid gap-x-12 gap-y-6 md:grid-cols-2">
+  {groups.map((group) => (
+    <div class="border-t border-line pt-4">
+      <dt class="font-display text-lg font-semibold">{group.label}</dt>
+      <dd class="mt-1 text-muted">{group.items.join(' · ')}</dd>
+    </div>
+  ))}
+</dl>

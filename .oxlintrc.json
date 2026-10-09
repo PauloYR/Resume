@@ -1,0 +1,86 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "jsx-a11y", "import", "promise", "vitest"],
+  "categories": { "correctness": "error", "suspicious": "warn" },
+  "env": { "browser": true, "node": true, "es2024": true },
+  "ignorePatterns": [
+    "dist",
+    ".astro",
+    "node_modules",
+    "graphify-out",
+    ".agents",
+    ".claude/skills",
+    "playwright-report",
+    "test-results"
+  ],
+  "rules": {
+    "no-console": "error",
+    "no-debugger": "error",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-non-null-assertion": "warn",
+    "import/no-cycle": "error",
+    "import/no-unassigned-import": "off"
+  },
+  "overrides": [
+    {
+      "files": ["src/lib/**", "src/content/**", "src/config/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/components/*",
+                  "@/layouts/*",
+                  "@/pages/*",
+                  "**/components/**",
+                  "**/layouts/**",
+                  "**/pages/**"
+                ],
+                "message": "lib/content/config are data and logic: they must not import presentation (components, layouts, pages)."
+              },
+              {
+                "group": ["astro", "astro/*"],
+                "message": "lib/content/config stay framework-free (astro:content is the only allowed Astro import, in content.config.ts)."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/components/**", "src/layouts/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/pages/*", "**/pages/**"],
+                "message": "components and layouts must not import pages."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/*.test.ts", "tests/**"],
+      "rules": { "typescript/no-explicit-any": "off", "no-console": "off" }
+    },
+    {
+      "files": [
+        "astro.config.mjs",
+        "*.config.{js,mjs,ts}",
+        ".claude/**",
+        "scripts/**"
+      ],
+      "rules": { "no-console": "off" }
+    }
+  ]
+}

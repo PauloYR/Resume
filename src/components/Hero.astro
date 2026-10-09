@@ -1,0 +1,82 @@
+---
+import { site } from '@config/site';
+import { Image } from 'astro:assets';
+import photo from '../assets/paulo.jpg';
+import Icon from './Icon.astro';
+
+const highlights = [
+  {
+    title: 'Biografia',
+    text: `${site.yearsOfExperience} anos de experiência, de apps Android nativos a microsserviços em Go numa plataforma financeira.`,
+  },
+  {
+    title: 'O que eu uso',
+    text: 'Go, AWS, Temporal, OpenTelemetry, MySQL, MongoDB, Redis e filas SQS e SNS.',
+  },
+  {
+    title: 'Disponibilidade',
+    text: `${site.availability}. ${site.city}, ${site.region}.`,
+  },
+];
+---
+
+<section class="pt-12 pb-10 md:pt-24 md:pb-16" aria-labelledby="titulo-inicio">
+  <Image
+    src={photo}
+    alt={`Foto de ${site.name}`}
+    width={112}
+    height={112}
+    widths={[112, 200]}
+    sizes="(min-width: 48rem) 112px, 96px"
+    format="webp"
+    loading="eager"
+    fetchpriority="high"
+    class="mb-6 size-24 rounded-full border-2 border-accent object-cover md:mb-8 md:size-28"
+  />
+
+  <h1
+    id="titulo-inicio"
+    class="max-w-[20ch] text-[clamp(2.4rem,8.5vw,4.75rem)] font-bold leading-[1.04] tracking-[-0.03em]"
+  >
+    Olá, sou o {site.name.split(' ')[0]},{' '}
+    <span class="text-brand">engenheiro de software sênior, backend em Go</span>
+  </h1>
+
+  <p class="mt-6 max-w-[46ch] text-lg text-muted md:mt-8 md:text-xl">
+    Sistemas de pagamentos e eventos que sustentam{' '}
+    <strong class="tabular font-semibold text-fg">
+      588 eventos por segundo
+    </strong>
+    , com observabilidade e segurança desde o primeiro deploy.
+  </p>
+
+  <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center md:mt-10">
+    <a
+      href={`mailto:${site.email}`}
+      class="group bg-brand inline-flex min-h-14 items-center gap-3 rounded-full px-8 text-lg font-semibold transition-transform duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0"
+    >
+      Falar comigo
+      <Icon
+        name="arrow"
+        class="size-5 transition-transform duration-200 group-hover:translate-x-1"
+      />
+    </a>
+    <a
+      href={site.resumePdf}
+      download
+      class="inline-flex min-h-12 items-center gap-2 rounded-full border border-line px-6 font-medium text-fg transition-colors hover:border-accent"
+    >
+      <Icon name="download" class="size-4" />
+      Baixar currículo (PDF)
+    </a>
+  </div>
+
+  <ul class="mt-12 grid gap-4 md:mt-16 md:grid-cols-3" aria-label="Resumo">
+    {highlights.map((item) => (
+      <li class="card">
+        <h2 class="text-lg font-semibold">{item.title}</h2>
+        <p class="mt-2 text-[0.95rem] text-muted">{item.text}</p>
+      </li>
+    ))}
+  </ul>
+</section>

@@ -1,0 +1,88 @@
+[
+  {
+    "id": "motor-de-pontos",
+    "title": "Motor de pontos a 588 eventos por segundo",
+    "summary": "Acúmulo de pontos que sustenta pico alto sem perder evento.",
+    "context": "Plataforma financeira com motor de pontos em Go, MySQL, Redis, Asynq e SQS. Clientes com várias tags levavam de 15 a 25 s para ter o acúmulo processado.",
+    "action": "Profiling com pprof para achar o gargalo, cache de tags e regras e consolidação de chamadas.",
+    "result": "Processamento de no máximo 1 s por acúmulo, pico de 588 acúmulos por segundo e 99,9% de processamento em 1,2 milhão de acúmulos.",
+    "metrics": [
+      {
+        "label": "Tempo por acúmulo",
+        "before": "15–25 s",
+        "after": "≤ 1 s"
+      },
+      {
+        "label": "Pico sustentado",
+        "after": "588 acúmulos/s"
+      },
+      {
+        "label": "Processados em 1,2 mi de acúmulos",
+        "after": "99,9%"
+      }
+    ],
+    "stack": ["Go", "MySQL", "Redis", "Asynq", "SQS", "pprof"],
+    "order": 0
+  },
+  {
+    "id": "assinaturas",
+    "title": "Assinaturas recorrentes com migração sem parada",
+    "summary": "Serviço de assinaturas com workflows duráveis e migração do legado.",
+    "context": "Serviço de assinaturas em Go com MongoDB, Temporal e SQS, cobrança recorrente em cartão pela Rede (Itaú) e PIX via Bradesco.",
+    "action": "Idempotência, reconciliação, retentativas seletivas e webhook de PIX. Migração de cerca de 2,5 mil contratos do sistema legado.",
+    "result": "4,1 mil assinaturas com 98,1% de sucesso e migração sem indisponibilidade.",
+    "metrics": [
+      {
+        "label": "Assinaturas ativas",
+        "after": "4,1 mil"
+      },
+      {
+        "label": "Taxa de sucesso",
+        "after": "98,1%"
+      },
+      {
+        "label": "Contratos migrados do legado, sem indisponibilidade",
+        "after": "~2,5 mil"
+      }
+    ],
+    "stack": ["Go", "MongoDB", "Temporal", "SQS", "PIX", "Rede (Itaú)"],
+    "order": 1
+  },
+  {
+    "id": "criptografia-de-cartao",
+    "title": "Dados de cartão criptografados antes de persistir",
+    "summary": "Criptografia de PAN com chave em HSM e trilha de auditoria.",
+    "context": "Dados de cartão (PAN) precisavam ser protegidos antes de chegar ao banco.",
+    "action": "Criptografia com AWS KMS antes da persistência, chave em HSM, acesso por IAM e auditoria no CloudTrail.",
+    "result": "PAN nunca persistido em claro, com acesso controlado e auditável.",
+    "metrics": [
+      {
+        "label": "PAN persistido em claro",
+        "before": "possível",
+        "after": "nunca"
+      }
+    ],
+    "stack": ["AWS KMS", "IAM", "CloudTrail", "Go"],
+    "order": 2
+  },
+  {
+    "id": "observabilidade",
+    "title": "Observabilidade que antecipa o problema",
+    "summary": "Traces e logs que apontam falhas antes do cliente perceber.",
+    "context": "18 microsserviços em produção mantidos por um time de 8 devs.",
+    "action": "Instrumentação com OpenTelemetry, logs e traces no Grafana, trilha de steps nos workflows do Temporal e eventos via SNS e SQS.",
+    "result": "Manutenção preventiva: problemas identificados antes de o cliente perceber, sem precisar abrir logs para entender um workflow.",
+    "metrics": [
+      {
+        "label": "Microsserviços mantidos",
+        "after": "18"
+      },
+      {
+        "label": "Time",
+        "after": "8 devs"
+      }
+    ],
+    "stack": ["OpenTelemetry", "Grafana", "Temporal", "SNS", "SQS"],
+    "order": 3
+  }
+]

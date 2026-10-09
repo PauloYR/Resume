@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import { site } from '@config/site';
+import { breadcrumbJsonLd } from '@lib/seo';
+import Base from '../layouts/Base.astro';
+import CaseRow from '../components/CaseRow.astro';
+import Contact from '../components/Contact.astro';
+
+const origin = Astro.site?.toString() ?? 'http://localhost:4321';
+const cases = (await getCollection('cases'))
+  .map((entry) => entry.data)
+  .sort((a, b) => a.order - b.order);
+
+const title = `Cases e resultados | ${site.name}, backend em Go`;
+const description =
+  'Quatro cases de backend em Go: motor de pontos a 588 eventos por segundo, assinaturas com PIX e cartão, criptografia com KMS e observabilidade com OpenTelemetry.';
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[
+    breadcrumbJsonLd(origin, [
+      { name: 'Início', path: '/' },
+      { name: 'Cases', path: '/projetos' },
+    ]),
+  ]}
+>
+  <section class="pt-10 pb-12 md:pt-20" aria-labelledby="titulo">
+    <h1
+      id="titulo"
+      class="text-[clamp(2.75rem,11vw,6.5rem)] font-bold leading-[0.95]"
+    >
+      Cases e resultados
+    </h1>
+    <p class="mt-6 max-w-[52ch] text-lg text-muted md:text-xl">
+      Cada case mostra o problema, o que eu fiz e o número que mudou. Todos vêm
+      de sistemas em produção numa plataforma financeira.
+    </p>
+  </section>
+
+  <section class="pb-12" aria-label="Lista de cases">
+    {cases.map((item) => (
+      <CaseRow {...item} headingLevel="h2" full />
+    ))}
+  </section>
+
+  <div class="py-12 md:py-24">
+    <Contact />
+  </div>
+</Base>

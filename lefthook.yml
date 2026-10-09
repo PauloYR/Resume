@@ -1,0 +1,32 @@
+# Git hooks. Installed on `npm install` (lefthook postinstall) or via `npx lefthook install`.
+# Never skip them: fix the finding instead.
+pre-commit:
+  parallel: false
+  jobs:
+    - name: secrets (betterleaks, staged)
+      # Fail closed: a missing scanner must not silently let secrets through.
+      run: |
+        command -v betterleaks >/dev/null 2>&1 || { echo "betterleaks not installed (brew install betterleaks). Refusing to commit unscanned." >&2; exit 1; }
+        betterleaks git --staged --no-banner --redact
+    - name: claude hooks selftest
+      glob: '.claude/hooks/*.mjs'
+      run: node .claude/hooks/selftest.mjs
+    - name: format (prettier, staged)
+      glob: '*.{js,mjs,ts,astro,css,json,md,yml,yaml}'
+      # CLAUDE.md is a symlink to AGENTS.md (checked); prettier refuses explicit symlinks.
+      exclude: 'CLAUDE.md'
+      run: npx prettier --check {staged_files}
+    - name: lint (oxlint)
+      glob: '*.{js,mjs,ts,astro}'
+      run: npx oxlint --deny-warnings --no-error-on-unmatched-pattern {staged_files}
+    - name: types (astro check)
+      run: npx astro check
+
+pre-push:
+  jobs:
+    - name: dependency audit
+      run: npm audit --omit=dev --audit-level=high
+    - name: tests
+      run: npx vitest run --passWithNoTests
+    - name: build
+      run: npm run build

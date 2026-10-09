@@ -1,0 +1,14 @@
+[
+  {
+    "id": "estacio",
+    "title": "Sistemas de Informação (Bacharelado)",
+    "school": "Estácio",
+    "years": "2019 – 2024"
+  },
+  {
+    "id": "petrola",
+    "title": "Técnico em Informática (Pós-médio)",
+    "school": "Escola Estadual de Educação Profissional Paulo Petrola",
+    "years": "2016 – 2018"
+  }
+]

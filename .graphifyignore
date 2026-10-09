@@ -1,0 +1,15 @@
+# Vendored third-party skills (installed via `npx skills add`); keep byte-identical to upstream.
+# Not project code — exclude from the knowledge graph (mirrors .prettierignore).
+.agents/
+
+# Build outputs, caches and local-only artifacts (also in .gitignore;
+# listed here so the graph stays clean even if gitignore handling changes).
+node_modules/
+dist/
+.astro/
+coverage/
+.vitest/
+diagnostics/
+graphify-out/
+*.log
+npm-debug.log*

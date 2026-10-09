@@ -1,0 +1,54 @@
+---
+import { site } from '@config/site';
+import Icon from './Icon.astro';
+
+const copyright = `© ${new Date().getFullYear()} ${site.name}. ${site.city}, ${site.region}.`;
+const links = [
+  {
+    href: site.linkedin,
+    label: 'LinkedIn',
+    icon: 'linkedin' as const,
+    rel: 'me noopener noreferrer',
+    external: true,
+  },
+  ...(site.github
+    ? [
+        {
+          href: site.github,
+          label: 'GitHub',
+          icon: 'github' as const,
+          rel: 'me noopener noreferrer',
+          external: true,
+        },
+      ]
+    : []),
+  {
+    href: `mailto:${site.email}`,
+    label: 'E-mail',
+    icon: 'mail' as const,
+    rel: undefined,
+    external: false,
+  },
+];
+---
+
+<footer class="print:hidden mt-24 border-t border-line">
+  <div class="container-page flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between">
+    <p class="text-sm text-muted">{copyright}</p>
+    <ul class="flex flex-wrap gap-2">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            target={link.external ? '_blank' : undefined}
+            rel={link.rel}
+            class="inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-4 text-sm text-fg transition-colors hover:border-accent active:bg-surface-2"
+          >
+            <Icon name={link.icon} class="size-4" />
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</footer>

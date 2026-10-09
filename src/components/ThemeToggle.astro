@@ -1,0 +1,55 @@
+---
+import Icon from './Icon.astro';
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  class="inline-flex size-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent active:bg-surface-2"
+  aria-label="Alternar tema claro e escuro"
+>
+  <span class="theme-icon-dark">
+    <Icon name="sun" />
+  </span>
+  <span class="theme-icon-light">
+    <Icon name="moon" />
+  </span>
+</button>
+
+<style>
+  :global(:root[data-theme='dark']) .theme-icon-light,
+  :global(:root[data-theme='light']) .theme-icon-dark {
+    display: none;
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+
+  function syncThemeColor() {
+    const bg = getComputedStyle(root).getPropertyValue('--bg').trim();
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', bg);
+  }
+
+  function apply(theme: 'dark' | 'light') {
+    root.dataset.theme = theme;
+    syncThemeColor();
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      // Storage can be blocked (private mode); the toggle still works for this visit.
+    }
+  }
+
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-theme-toggle]')
+    .forEach((button) => {
+      button.addEventListener('click', () => {
+        apply(root.dataset.theme === 'light' ? 'dark' : 'light');
+      });
+    });
+
+  syncThemeColor();
+</script>

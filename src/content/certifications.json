@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1-mcp",
+    "title": "Claude Academy: Introduction to Model Context Protocol",
+    "issuer": "Anthropic",
+    "date": "2026-09"
+  },
+  {
+    "id": "2-claude-code",
+    "title": "Claude Academy: Claude Code in Action",
+    "issuer": "Anthropic",
+    "date": "2026-09"
+  },
+  {
+    "id": "3-claude-101",
+    "title": "Claude Academy: Claude 101",
+    "issuer": "Anthropic",
+    "date": "2026-09"
+  },
+  {
+    "id": "4-cursos",
+    "title": "Docker e Docker Compose; Android (Room, testes automatizados e TDD); React (testes em aplicações frontend)"
+  }
+]

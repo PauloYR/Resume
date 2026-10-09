@@ -1,0 +1,192 @@
+@import 'tailwindcss';
+
+/*
+  Theme tokens. Components never use literal colors: only the semantic utilities generated
+  from @theme below (bg-bg, bg-surface, text-fg, text-muted, text-accent, border-line ...).
+  Dark = graphite violet. Light = pale lavender. Same two accents (violet, blue) in both.
+*/
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #15131f;
+  --surface: #1e1c2b;
+  --surface-2: #272539;
+  --border: #322f49;
+  --fg: #f3f1ff;
+  --muted: #aeaacd;
+  --accent: #a58bff;
+  --accent-2: #5ba2ff;
+  --accent-fg: #15131f;
+  --heat-0: #272539;
+  --heat-1: #3e3585;
+  --heat-2: #5f4fc4;
+  --heat-3: #6f86f2;
+  --heat-4: #8ec2ff;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f7f5ff;
+  --surface: #ffffff;
+  --surface-2: #efebfb;
+  --border: #ddd6f3;
+  --fg: #1a1632;
+  --muted: #565080;
+  --accent: #5b34d6;
+  --accent-2: #1d5fd8;
+  --accent-fg: #ffffff;
+  --heat-0: #e8e2f6;
+  --heat-1: #cbbcf1;
+  --heat-2: #9c82e6;
+  --heat-3: #5d63dd;
+  --heat-4: #1d5fd8;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #f7f5ff;
+    --surface: #ffffff;
+    --surface-2: #efebfb;
+    --border: #ddd6f3;
+    --fg: #1a1632;
+    --muted: #565080;
+    --accent: #5b34d6;
+    --accent-2: #1d5fd8;
+    --accent-fg: #ffffff;
+    --heat-0: #e8e2f6;
+    --heat-1: #cbbcf1;
+    --heat-2: #9c82e6;
+    --heat-3: #5d63dd;
+    --heat-4: #1d5fd8;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-fg: var(--accent-fg);
+  --color-heat-0: var(--heat-0);
+  --color-heat-1: var(--heat-1);
+  --color-heat-2: var(--heat-2);
+  --color-heat-3: var(--heat-3);
+  --color-heat-4: var(--heat-4);
+  --font-display:
+    'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--bg);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Themed browser surfaces: scrollbar, caret, form accent. */
+  * {
+    scrollbar-color: var(--border) transparent;
+    scrollbar-width: thin;
+  }
+
+  input,
+  textarea {
+    caret-color: var(--accent);
+    accent-color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    margin-inline: auto;
+    max-width: 68rem;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 48rem) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Brand gradient (violet to blue): only the headline highlight and the primary button. */
+  .text-brand {
+    color: var(--accent);
+    background-image: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bg-brand {
+    background-image: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: var(--accent-fg);
+  }
+
+  /* One card style: a raised surface with a single border, no shadow stack. */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.875rem;
+    padding: 1.25rem;
+    transition:
+      border-color 200ms ease-out,
+      transform 200ms ease-out;
+  }
+
+  a.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+}

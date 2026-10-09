@@ -1,0 +1,44 @@
+[
+  {
+    "id": "sorocaba-refrescos",
+    "name": "Sorocaba Refrescos",
+    "via": "mobiup",
+    "order": 0
+  },
+  {
+    "id": "nuclea",
+    "name": "Nuclea",
+    "via": "mobiup",
+    "order": 1
+  },
+  {
+    "id": "sistema-verdes-mares",
+    "name": "Sistema Verdes Mares",
+    "via": "mobiup",
+    "order": 2
+  },
+  {
+    "id": "banco-original",
+    "name": "Banco Original",
+    "via": "gft",
+    "order": 3
+  },
+  {
+    "id": "heineken",
+    "name": "Heineken",
+    "via": "gfx",
+    "order": 4
+  },
+  {
+    "id": "pepsi",
+    "name": "Pepsi",
+    "via": "gfx",
+    "order": 5
+  },
+  {
+    "id": "boa-safra",
+    "name": "Boa Safra Sementes",
+    "via": "gfx",
+    "order": 6
+  }
+]

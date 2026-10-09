@@ -1,0 +1,113 @@
+---
+import type { GithubActivity } from '@lib/github';
+import { site } from '@config/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  activity: GithubActivity;
+}
+const { activity } = Astro.props;
+
+const cell = 11;
+const gap = 3;
+const step = cell + gap;
+const width = activity.weeks.length * step;
+const height = 7 * step;
+const summary = `${activity.total} contribuições nos últimos 12 meses. Linguagens principais: ${activity.languages
+  .slice(0, 3)
+  .map((l) => `${l.name} ${l.percent}%`)
+  .join(', ')}.`;
+const levelClass = [
+  'fill-heat-0',
+  'fill-heat-1',
+  'fill-heat-2',
+  'fill-heat-3',
+  'fill-heat-4',
+] as const;
+const dateFormat = new Intl.DateTimeFormat('pt-BR', {
+  day: 'numeric',
+  month: 'short',
+});
+---
+
+<div class="card p-5 md:p-8">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <p class="font-display text-xl font-semibold tabular">
+      {activity.total} contribuições no último ano
+    </p>
+    <a
+      href={site.github}
+      target="_blank"
+      rel="me noopener noreferrer"
+      class="inline-flex min-h-11 items-center gap-2 text-sm text-accent underline underline-offset-4"
+    >
+      <Icon name="github" class="size-4" />
+      Ver no GitHub
+    </a>
+  </div>
+
+  <div
+    class="heatmap mt-5 overflow-x-auto pb-2"
+    tabindex="0"
+    role="group"
+    aria-label="Mapa de contribuições, role para ver os meses anteriores"
+  >
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      role="img"
+      aria-label={summary}
+      class="block h-auto w-full min-w-[44rem]"
+    >
+      {activity.weeks.map((week, x) =>
+        week.map((day, y) => (
+          <rect
+            x={x * step}
+            y={y * step}
+            width={cell}
+            height={cell}
+            rx="2.5"
+            class={levelClass[day.level]}
+          >
+            <title>{`${day.count} ${day.count === 1 ? 'contribuição' : 'contribuições'} em ${dateFormat.format(new Date(`${day.date}T00:00:00`))}`}</title>
+          </rect>
+        )),
+      )}
+    </svg>
+  </div>
+
+  <div
+    class="mt-2 flex items-center justify-end gap-2 text-xs text-muted"
+    aria-hidden="true"
+  >
+    Menos
+    <svg width={5 * step} height={cell} viewBox={`0 0 ${5 * step} ${cell}`}>
+      {levelClass.map((cls, i) => (
+        <rect x={i * step} width={cell} height={cell} rx="2.5" class={cls} />
+      ))}
+    </svg>
+    Mais
+  </div>
+
+  {activity.languages.length > 0 && (
+    <div class="mt-6">
+      <p class="font-display text-lg font-semibold">Linguagens mais usadas</p>
+      <ul class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted">
+        {activity.languages.map((language) => (
+          <li class="tabular">
+            <span class="text-fg">{language.name}</span> {language.percent}%
+          </li>
+        ))}
+      </ul>
+      <p class="mt-3 text-sm text-muted tabular">
+        {activity.repos} repositórios públicos · {activity.stars} estrelas
+      </p>
+    </div>
+  )}
+</div>
+
+<script>
+  // Start at the most recent weeks on narrow screens.
+  document.querySelectorAll<HTMLElement>('.heatmap').forEach((el) => {
+    el.scrollLeft = el.scrollWidth;
+  });
+</script>

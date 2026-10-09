@@ -1,0 +1,111 @@
+[
+  {
+    "id": "linguagens",
+    "label": "Linguagens",
+    "items": ["Go", "Kotlin", "Java", "TypeScript/Node.js"],
+    "order": 0
+  },
+  {
+    "id": "backend",
+    "label": "Backend e arquitetura",
+    "items": [
+      "Microsserviços",
+      "Sistemas distribuídos",
+      "Arquitetura orientada a eventos",
+      "gRPC",
+      "REST (OpenAPI/Swagger)",
+      "Clean Architecture",
+      "Arquitetura Hexagonal",
+      "Modelagem de dados"
+    ],
+    "order": 1
+  },
+  {
+    "id": "mensageria",
+    "label": "Mensageria e workflows",
+    "items": ["SNS", "SQS", "Temporal", "Asynq"],
+    "order": 2
+  },
+  {
+    "id": "bancos",
+    "label": "Bancos de dados",
+    "items": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "DynamoDB",
+      "Redis",
+      "Elasticsearch"
+    ],
+    "order": 3
+  },
+  {
+    "id": "cloud",
+    "label": "Cloud e segurança",
+    "items": [
+      "AWS (EC2, S3, SQS, SNS, KMS, DynamoDB, Cognito, CloudWatch)",
+      "Keycloak (OAuth2/OIDC)",
+      "Open Policy Agent",
+      "Docker",
+      "Nginx",
+      "Envoy"
+    ],
+    "order": 4
+  },
+  {
+    "id": "observabilidade",
+    "label": "Observabilidade e performance",
+    "items": [
+      "OpenTelemetry",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch",
+      "pprof",
+      "Troubleshooting"
+    ],
+    "order": 5
+  },
+  {
+    "id": "qualidade",
+    "label": "Qualidade e CI/CD",
+    "items": [
+      "Testes de unidade e integração",
+      "Testcontainers",
+      "moq",
+      "Code review",
+      "GitHub Actions",
+      "Bitbucket Pipelines",
+      "Jenkins",
+      "Noções de Terraform/OpenTofu"
+    ],
+    "order": 6
+  },
+  {
+    "id": "integracoes",
+    "label": "Integrações",
+    "items": ["Rede (Itaú)", "PIX (Bradesco)", "SAP"],
+    "order": 7
+  },
+  {
+    "id": "mobile",
+    "label": "Mobile",
+    "items": [
+      "Android (Kotlin, Java, MVVM, Jetpack Compose)",
+      "Flutter",
+      "Publicação na Google Play"
+    ],
+    "order": 8
+  },
+  {
+    "id": "metodologias",
+    "label": "Metodologias ágeis",
+    "items": ["Scrum", "Kanban", "Planning poker", "Trello", "Planka"],
+    "order": 9
+  },
+  {
+    "id": "ia",
+    "label": "IA no desenvolvimento",
+    "items": ["Uso diário de LLMs", "Agentes", "Prompt engineering"],
+    "order": 10
+  }
+]

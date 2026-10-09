@@ -1,0 +1,110 @@
+---
+import { getCollection } from 'astro:content';
+import { site } from '@config/site';
+import { personJsonLd, websiteJsonLd } from '@lib/seo';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import CaseRow from '../components/CaseRow.astro';
+import CompanyCarousel from '../components/CompanyCarousel.astro';
+import ExperienceList from '../components/ExperienceList.astro';
+import StackList from '../components/StackList.astro';
+import Contact from '../components/Contact.astro';
+import GithubActivity from '../components/GithubActivity.astro';
+import { getSiteGithubActivity } from '@lib/github-site';
+import { buildClientItems, buildCompanyItems } from '@lib/logos';
+
+const origin = Astro.site?.toString() ?? 'http://localhost:4321';
+
+const cases = (await getCollection('cases'))
+  .map((entry) => entry.data)
+  .sort((a, b) => a.order - b.order)
+  .slice(0, 3);
+const experience = (await getCollection('experience'))
+  .map((entry) => ({ id: entry.id, ...entry.data }))
+  .sort((a, b) => b.period.start.localeCompare(a.period.start));
+const skills = (await getCollection('skills'))
+  .map((entry) => ({
+    id: entry.id,
+    ...entry.data,
+  }))
+  .sort((a, b) => a.order - b.order);
+
+const githubActivity = await getSiteGithubActivity();
+
+const companies = buildCompanyItems(experience);
+const clients = buildClientItems(
+  (await getCollection('clients'))
+    .map((entry) => ({ id: entry.id, ...entry.data }))
+    .sort((a, b) => a.order - b.order),
+  experience,
+);
+
+const knowsAbout = skills.flatMap((group) => group.items).slice(0, 24);
+
+const title = `${site.name} | Engenheiro de Software Sênior, Backend em Go`;
+const description = `${site.name}, engenheiro de software sênior em Fortaleza-CE: backend em Go, microsserviços, pagamentos e observabilidade. ${site.yearsOfExperience} anos de experiência e motor de pontos com 588 eventos por segundo.`;
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[personJsonLd(site, origin, knowsAbout), websiteJsonLd(site, origin)]}
+>
+  <Hero />
+
+  <section class="py-12 md:py-20" aria-labelledby="resultados">
+    <SectionHead
+      id="resultados"
+      title="Resultados em produção"
+      intro="Números dos sistemas que mantive, com o antes e o depois."
+      href="/projetos"
+      linkLabel="Ver todos os cases"
+    />
+    <div class="grid gap-6">
+      {cases.map((item) => (
+        <CaseRow {...item} />
+      ))}
+    </div>
+  </section>
+
+  <section class="py-12 md:py-20" aria-labelledby="empresas">
+    <SectionHead id="empresas" title="Onde já trabalhei" />
+    <CompanyCarousel items={companies} label="Empresas onde trabalhei" />
+    <h3 class="mt-12 mb-6 text-xl font-semibold text-muted md:text-2xl">
+      Clientes que atendi
+    </h3>
+    <CompanyCarousel items={clients} label="Clientes que atendi" reverse />
+  </section>
+
+  <section class="py-12 md:py-20" aria-labelledby="trajetoria">
+    <SectionHead
+      id="trajetoria"
+      title="Trajetória"
+      intro="De apps Android nativos a microsserviços em Go numa plataforma financeira."
+      href="/curriculo"
+      linkLabel="Currículo completo"
+    />
+    <ExperienceList items={experience} />
+  </section>
+
+  <section class="py-12 md:py-20" aria-labelledby="stack">
+    <SectionHead id="stack" title="O que eu uso" />
+    <StackList groups={skills} />
+  </section>
+
+  {githubActivity && (
+    <section class="py-12 md:py-20" aria-labelledby="github">
+      <SectionHead
+        id="github"
+        title="Atividade no GitHub"
+        intro="Contribuições e linguagens dos meus repositórios públicos."
+      />
+      <GithubActivity activity={githubActivity} />
+    </section>
+  )}
+
+  <div class="py-12 md:py-24">
+    <Contact />
+  </div>
+</Base>

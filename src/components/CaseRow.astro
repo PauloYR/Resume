@@ -1,0 +1,86 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  context: string;
+  action: string;
+  result: string;
+  metrics: { label: string; before?: string; after: string }[];
+  stack: string[];
+  full?: boolean;
+  headingLevel?: 'h2' | 'h3';
+}
+const {
+  title,
+  summary,
+  context,
+  action,
+  result,
+  metrics,
+  stack,
+  full = false,
+  headingLevel: Heading = 'h3',
+} = Astro.props;
+---
+
+<article class="card grid gap-6 p-5 md:grid-cols-12 md:gap-10 md:p-8">
+  <div class="md:col-span-7">
+    <Heading class="text-[clamp(1.4rem,4.4vw,2rem)] font-semibold">
+      {title}
+    </Heading>
+    <p class="mt-2 max-w-[52ch] text-muted">{summary}</p>
+
+    {full && (
+      <dl class="mt-6 grid max-w-[60ch] gap-4">
+        <div>
+          <dt class="font-display text-sm font-semibold text-accent">
+            Contexto
+          </dt>
+          <dd class="mt-1">{context}</dd>
+        </div>
+        <div>
+          <dt class="font-display text-sm font-semibold text-accent">
+            O que fiz
+          </dt>
+          <dd class="mt-1">{action}</dd>
+        </div>
+        <div>
+          <dt class="font-display text-sm font-semibold text-accent">
+            Resultado
+          </dt>
+          <dd class="mt-1">{result}</dd>
+        </div>
+      </dl>
+    )}
+
+    <ul class="mt-5 flex flex-wrap gap-2" aria-label="Tecnologias">
+      {stack.map((item) => (
+        <li class="rounded-full border border-line bg-surface-2 px-3 py-1 text-sm text-muted">
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <dl class="tabular grid content-start gap-4 md:col-span-5">
+    {metrics.map((metric) => (
+      <div class="rounded-xl border border-line bg-bg p-4">
+        <dt class="text-sm text-muted">{metric.label}</dt>
+        <dd class="mt-1 font-display text-2xl font-semibold">
+          {metric.before && (
+            <>
+              <span class="text-muted line-through decoration-accent-2 decoration-2">
+                {metric.before}
+              </span>
+              <span class="sr-only"> para </span>
+              <span aria-hidden="true" class="mx-2 text-accent">
+                →
+              </span>
+            </>
+          )}
+          {metric.after}
+        </dd>
+      </div>
+    ))}
+  </dl>
+</article>

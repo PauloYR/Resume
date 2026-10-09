@@ -1,0 +1,12 @@
+---
+import { serializeJsonLd } from '@lib/seo';
+
+interface Props {
+  data: object;
+}
+const { data } = Astro.props;
+// security-reviewed: build-time first-party data only; serializeJsonLd escapes < > & so it cannot close the script tag.
+const json = serializeJsonLd(data);
+---
+
+<script type="application/ld+json" set:html={json} />
