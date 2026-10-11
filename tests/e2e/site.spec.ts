@@ -96,6 +96,16 @@ test('mobile menu opens and closes with Escape', async ({ page, isMobile }) => {
   await expect(page.locator('#mobile-menu')).toBeHidden();
 });
 
+test('mobile menu button shows a visible icon', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'mobile only');
+  await page.goto('/');
+  const icon = page.locator('[data-menu-button] svg').first();
+  const box = await icon.boundingBox();
+  expect(box?.width).toBeGreaterThanOrEqual(16);
+  expect(box?.height).toBeGreaterThanOrEqual(16);
+  await expect(icon).toHaveCSS('opacity', '1');
+});
+
 test.describe('stack section', () => {
   test('shows tech chips with names and an interactive gopher', async ({
     page,
