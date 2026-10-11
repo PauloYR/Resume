@@ -138,6 +138,13 @@ test.describe('state changes are animated', () => {
 test.describe('reduced motion reaches final state at once', () => {
   test.use({ reducedMotion: 'reduce' });
 
+  test('hero gradient stays static', async ({ page }) => {
+    await page.goto('/');
+    const brand = page.locator('h1 .text-brand');
+    const read = (el: Element) => getComputedStyle(el).animationName;
+    expect(await brand.evaluate(read)).toBe('none');
+  });
+
   test('details open without an intermediate height', async ({ page }) => {
     const details = await openSecondRole(page);
     await details.scrollIntoViewIfNeeded();
@@ -173,4 +180,16 @@ test.describe('no horizontal scroll while animating', () => {
       expect(overflow).toBe(false);
     });
   }
+});
+
+test('hero gradient flows left to right on a loop', async ({ page }) => {
+  await page.goto('/');
+  const brand = page.locator('h1 .text-brand');
+  const pos = (el: Element) =>
+    parseFloat(getComputedStyle(el).backgroundPositionX);
+  const values = await sample(brand, pos, 6, 120);
+  expect(new Set(values).size).toBeGreaterThan(3);
+  expect(
+    await brand.evaluate((el) => getComputedStyle(el).animationIterationCount),
+  ).toBe('infinite');
 });

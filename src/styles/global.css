@@ -67,6 +67,7 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast: 150ms;
   --dur-base: 300ms;
+  --dur-flow: 4.5s;
   interpolate-size: allow-keywords;
 }
 
@@ -181,6 +182,33 @@
     -webkit-text-fill-color: transparent;
   }
 
+  /* Living gradient: a violet > blue > violet tile at 200% width (one full slide loops
+     seamlessly) plus a bright glint at 300% width, so it sweeps faster than the base
+     and passes over the letters like light. */
+  @media (prefers-reduced-motion: no-preference) {
+    .text-brand {
+      background-image:
+        linear-gradient(
+          100deg,
+          transparent 38%,
+          color-mix(in oklab, var(--accent-2) 35%, white) 50%,
+          transparent 62%
+        ),
+        linear-gradient(
+          90deg,
+          var(--accent),
+          var(--accent-2) 25%,
+          color-mix(in oklab, var(--accent-2) 60%, var(--accent)) 50%,
+          var(--accent-2) 75%,
+          var(--accent)
+        );
+      background-size:
+        300% 100%,
+        200% 100%;
+      animation: brand-flow var(--dur-flow) linear infinite;
+    }
+  }
+
   .bg-brand {
     background-image: linear-gradient(90deg, var(--accent), var(--accent-2));
     color: var(--accent-fg);
@@ -247,6 +275,19 @@
   Entrance for blocks that scroll into view. Plain CSS (no JS): browsers without
   scroll-driven animations simply show the block, and reduced motion never animates.
 */
+@keyframes brand-flow {
+  from {
+    background-position:
+      0% 0,
+      0% 0;
+  }
+  to {
+    background-position:
+      -150% 0,
+      -200% 0;
+  }
+}
+
 @keyframes reveal-in {
   from {
     opacity: 0;
