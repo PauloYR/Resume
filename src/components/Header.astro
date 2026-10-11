@@ -60,10 +60,19 @@ const { current } = Astro.props;
         data-menu-button
         aria-expanded="false"
         aria-controls="mobile-menu"
-        class="inline-flex size-11 items-center justify-center rounded-full border border-line text-fg active:bg-surface-2 md:hidden"
+        class="inline-flex size-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent active:bg-surface-2 md:hidden"
         aria-label="Abrir menu"
       >
-        <Icon name="menu" />
+        <span class="grid *:col-start-1 *:row-start-1">
+          <Icon
+            name="menu"
+            class="transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none [[aria-expanded=true]_&]:rotate-90 [[aria-expanded=true]_&]:opacity-0"
+          />
+          <Icon
+            name="close"
+            class="-rotate-90 opacity-0 transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none [[aria-expanded=true]_&]:rotate-0 [[aria-expanded=true]_&]:opacity-100"
+          />
+        </span>
       </button>
     </div>
   </div>
@@ -71,10 +80,10 @@ const { current } = Astro.props;
   <nav
     id="mobile-menu"
     aria-label="Principal (menu)"
-    hidden
-    class="border-t border-line bg-bg md:hidden"
+    inert
+    class="invisible grid grid-rows-[0fr] bg-bg transition-[grid-template-rows,visibility] duration-300 ease-out motion-reduce:transition-none data-[open]:visible data-[open]:grid-rows-[1fr] md:hidden"
   >
-    <ul class="container-page py-2">
+    <ul class="container-page min-h-0 overflow-hidden border-t border-line py-2">
       <li>
         <button
           type="button"
@@ -91,7 +100,7 @@ const { current } = Astro.props;
           <a
             href={item.href}
             aria-current={isCurrent(current, item.href) ? 'page' : undefined}
-            class="flex min-h-12 items-center justify-between border-b border-line text-lg text-muted aria-[current=page]:text-fg"
+            class="flex min-h-12 items-center justify-between border-b border-line text-lg text-muted transition-colors active:text-fg aria-[current=page]:text-fg"
           >
             {item.label}
             <Icon name="arrow" class="size-4" />
@@ -109,7 +118,9 @@ const { current } = Astro.props;
 
   function setOpen(open: boolean) {
     if (!button || !menu) return;
-    menu.hidden = !open;
+    if (open) menu.dataset.open = '';
+    else delete menu.dataset.open;
+    menu.inert = !open;
     button.setAttribute('aria-expanded', String(open));
     button.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
   }

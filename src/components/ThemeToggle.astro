@@ -8,18 +8,27 @@ import Icon from './Icon.astro';
   class="inline-flex size-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent active:bg-surface-2"
   aria-label="Alternar tema claro e escuro"
 >
-  <span class="theme-icon-dark">
-    <Icon name="sun" />
-  </span>
-  <span class="theme-icon-light">
-    <Icon name="moon" />
+  <span class="grid *:col-start-1 *:row-start-1">
+    <span class="theme-icon-dark">
+      <Icon name="sun" />
+    </span>
+    <span class="theme-icon-light">
+      <Icon name="moon" />
+    </span>
   </span>
 </button>
 
 <style>
+  .theme-icon-dark,
+  .theme-icon-light {
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
   :global(:root[data-theme='dark']) .theme-icon-light,
   :global(:root[data-theme='light']) .theme-icon-dark {
-    display: none;
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.6);
   }
 </style>
 
@@ -47,7 +56,13 @@ import Icon from './Icon.astro';
     .querySelectorAll<HTMLButtonElement>('[data-theme-toggle]')
     .forEach((button) => {
       button.addEventListener('click', () => {
-        apply(root.dataset.theme === 'light' ? 'dark' : 'light');
+        const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+        const animate =
+          'startViewTransition' in document &&
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // The theme is applied synchronously inside the callback; the browser cross-fades the page.
+        if (animate) document.startViewTransition(() => apply(next));
+        else apply(next);
       });
     });
 

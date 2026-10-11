@@ -104,6 +104,31 @@ const cases = [
       'export const email = "fulano@example.com"',
     ),
   ],
+  // motion: no dry state changes
+  [
+    2,
+    'dry .hidden toggle',
+    ...write(
+      `${P}/src/components/A.astro`,
+      '<script>menu.hidden = !open;</script>',
+    ),
+  ],
+  [
+    2,
+    'display swap on group-open',
+    ...write(
+      `${P}/src/components/A.astro`,
+      '<span class="group-open:hidden">x</span>',
+    ),
+  ],
+  [
+    0,
+    'animated data-open toggle',
+    ...write(
+      `${P}/src/components/A.astro`,
+      '<script>menu.dataset.open = ""; menu.inert = false;</script>',
+    ),
+  ],
   // mobile-first
   [
     2,

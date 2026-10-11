@@ -32,6 +32,7 @@ Componentes **nunca** usam cor literal (`#7c3aed`, `rgb()`) nem classe de paleta
 ## Movimento
 
 - Microanimações curtas (150–300ms), `transform`/`opacity` apenas. `@media (prefers-reduced-motion: reduce)` desliga marquee, parallax e transições longas (marquee vira grade estática).
+- **Sem troca de estado seca** (regra do repositório, AGENTS.md "Movimento"). Receitas: `<details>` → Web Animations API no painel interno (`[data-panel]`, altura+opacity; `::details-content` não existe em Firefox/Safari, então não use sozinho); menu/painel → `grid-rows-[0fr]`→`[1fr]` + `invisible`/`inert`; `<dialog>` e `::backdrop` → `@starting-style` + `display`/`overlay` `allow-discrete`; toast/estado vazio → `data-open` + opacity/visibility; troca de texto/ícone → empilhar em grid e cross-fade; tema → `document.startViewTransition` (aplicar `data-theme` síncrono no callback).
 - Sem animação que cause CLS ou dependa de hover para revelar conteúdo essencial.
 
 ## Verificação

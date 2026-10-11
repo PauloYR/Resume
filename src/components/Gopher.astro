@@ -46,6 +46,9 @@ const greeting = 'Oi, eu sou o gopher do Go. Toque em mim.';
   .gopher-btn.is-hopping img {
     animation: gopher-hop 320ms ease-out;
   }
+  [data-gopher-line].is-new {
+    animation: line-in var(--dur-base) var(--ease-out);
+  }
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     .gopher-btn:hover img {
       transform: rotate(-4deg);
@@ -53,8 +56,15 @@ const greeting = 'Oi, eu sou o gopher do Go. Toque em mim.';
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .gopher-btn.is-hopping img {
+    .gopher-btn.is-hopping img,
+    [data-gopher-line].is-new {
       animation: none;
+    }
+  }
+  @keyframes line-in {
+    from {
+      opacity: 0;
+      transform: translateX(-0.5rem);
     }
   }
   @keyframes gopher-hop {
@@ -88,6 +98,9 @@ const greeting = 'Oi, eu sou o gopher do Go. Toque em mim.';
     button.addEventListener('click', () => {
       index = (index + 1) % lines.length;
       output.textContent = lines[index] ?? '';
+      output.classList.remove('is-new');
+      void (output as HTMLElement).offsetWidth;
+      output.classList.add('is-new');
       button.classList.remove('is-hopping');
       void button.offsetWidth;
       button.classList.add('is-hopping');

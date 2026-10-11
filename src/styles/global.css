@@ -67,6 +67,7 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast: 150ms;
   --dur-base: 300ms;
+  interpolate-size: allow-keywords;
 }
 
 @theme inline {
@@ -143,9 +144,17 @@
     accent-color: var(--accent);
   }
 
+  /* Reduced motion: every change still happens, only instantly (final state, no tween). */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+
+    *,
+    ::before,
+    ::after {
+      transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
     }
   }
 }
@@ -184,8 +193,8 @@
     border-radius: 0.875rem;
     padding: 1.25rem;
     transition:
-      border-color 200ms ease-out,
-      transform 200ms ease-out;
+      border-color var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
   }
 
   a.card:hover {
@@ -258,17 +267,6 @@
   }
 }
 
-@keyframes palette-in {
-  from {
-    opacity: 0;
-    transform: translateY(-0.5rem);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .reveal {
@@ -285,9 +283,50 @@
   }
 }
 
+dialog.palette::backdrop {
+  background: color-mix(in oklab, var(--bg) 80%, transparent);
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  dialog[open].palette {
-    animation: palette-in var(--dur-fast) var(--ease-out);
+  /* Palette: enter and exit are both transitions (display and overlay are discrete). */
+  dialog.palette {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition:
+      opacity var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out),
+      display var(--dur-fast) allow-discrete,
+      overlay var(--dur-fast) allow-discrete;
+  }
+
+  dialog.palette[open] {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    dialog.palette[open] {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+  }
+
+  dialog.palette::backdrop {
+    opacity: 0;
+    transition:
+      opacity var(--dur-fast) var(--ease-out),
+      display var(--dur-fast) allow-discrete,
+      overlay var(--dur-fast) allow-discrete;
+  }
+
+  dialog.palette[open]::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    dialog.palette[open]::backdrop {
+      opacity: 0;
+    }
   }
 
   /* Cross-document view transitions between /, /projetos and /curriculo. */

@@ -50,29 +50,91 @@ const { items } = Astro.props;
         <p class="mt-1 max-w-[60ch] text-muted">{item.summary}</p>
         <p class="mt-1 text-sm text-muted">{item.location}</p>
 
-        <details class="group mt-3" open={index === 0}>
+        <details class="group expand mt-3" open={index === 0}>
           <summary class="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-full border border-line px-4 text-sm font-medium text-fg transition-colors hover:border-accent active:bg-surface-2 [&::-webkit-details-marker]:hidden">
-            <span class="group-open:hidden">Ver realizações e stack</span>
-            <span class="hidden group-open:inline">Ocultar detalhes</span>
+            <span class="grid">
+              <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-150 ease-out group-open:invisible group-open:opacity-0">
+                Ver realizações e stack
+              </span>
+              <span class="invisible col-start-1 row-start-1 opacity-0 transition-[opacity,visibility] duration-150 ease-out group-open:visible group-open:opacity-100">
+                Ocultar detalhes
+              </span>
+            </span>
             <Icon
               name="chevron"
-              class="size-4 transition-transform duration-300 group-open:rotate-180"
+              class="size-4 transition-transform duration-300 ease-out group-open:rotate-180"
             />
           </summary>
-          <ul class="mt-4 grid max-w-[65ch] gap-3 text-fg">
-            {item.bullets.map((bullet) => (
-              <li class="relative pl-5 before:absolute before:top-[0.7em] before:left-0 before:h-0.5 before:w-2.5 before:bg-accent">
-                {bullet}
-              </li>
-            ))}
-          </ul>
-          <ul class="mt-5 flex flex-wrap gap-2" aria-label="Tecnologias usadas">
-            {item.stack.map((tech) => (
-              <TechChip chip={toChip(tech)} />
-            ))}
-          </ul>
+          <div data-panel class="flow-root">
+            <ul class="mt-4 grid max-w-[65ch] gap-3 text-fg">
+              {item.bullets.map((bullet) => (
+                <li class="relative pl-5 before:absolute before:top-[0.7em] before:left-0 before:h-0.5 before:w-2.5 before:bg-accent">
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+            <ul
+              class="mt-5 flex flex-wrap gap-2"
+              aria-label="Tecnologias usadas"
+            >
+              {item.stack.map((tech) => (
+                <TechChip chip={toChip(tech)} />
+              ))}
+            </ul>
+          </div>
         </details>
       </div>
     </li>
   ))}
 </ol>
+
+<script>
+  // Cross-browser expand/collapse for <details>: ::details-content is not available everywhere.
+  const DURATION = 300;
+  const EASING = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
+  document
+    .querySelectorAll<HTMLDetailsElement>('details.expand')
+    .forEach((details) => {
+      const summary = details.querySelector('summary');
+      const panel = details.querySelector<HTMLElement>('[data-panel]');
+      if (!summary || !panel) return;
+      let running: Animation | null = null;
+      let closing = false;
+
+      function play(open: boolean) {
+        if (!panel) return;
+        const from = details.open ? panel.getBoundingClientRect().height : 0;
+        running?.cancel();
+        if (open) details.open = true;
+        const to = open ? panel.scrollHeight : 0;
+        panel.style.overflow = 'hidden';
+        running = panel.animate(
+          [
+            { height: `${from}px`, opacity: open ? 0 : 1 },
+            { height: `${to}px`, opacity: open ? 1 : 0 },
+          ],
+          { duration: DURATION, easing: EASING },
+        );
+        const finish = () => {
+          running = null;
+          closing = false;
+          panel.style.overflow = '';
+          if (!open) details.open = false;
+        };
+        running.onfinish = finish;
+        running.oncancel = () => {
+          panel.style.overflow = '';
+        };
+      }
+
+      summary.addEventListener('click', (event) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+          return;
+        event.preventDefault();
+        const opening = !details.open || closing;
+        closing = !opening;
+        play(opening);
+      });
+    });
+</script>

@@ -39,6 +39,16 @@ Estilo base ~360px; só escale com `sm:`/`md:`/`lg:`. Detalhes: skill `mobile-fi
 - Alvo de toque ≥ 44px, input ≥ 16px, nada essencial só em `hover:`, sem scroll horizontal em 320px.
 - Validar em 320/375/414px e depois desktop, nos dois temas.
 
+## Movimento (inegociável)
+
+Nenhuma mudança de estado é seca. Abrir/fechar, mostrar/ocultar, trocar texto, tema, hover/active/selected: tudo transita. Detalhes e receitas: skill `theming` e DESIGN.md.
+
+- Duração e curva só pelos tokens `--dur-fast`/`--dur-base`/`--ease-out` (`global.css`); nada de `200ms` solto.
+- Proibido alternar `hidden`/`display` direto (`el.hidden = …`, `group-open:hidden`). Use `data-open` + `opacity`/`visibility`/`grid-template-rows`, animação WAAPI do painel em `<details>` (não dependa só de `::details-content`), ou `@starting-style` + `allow-discrete` em `<dialog>`. Fechado fica `inert`/`visibility:hidden` (a11y).
+- Só `transform`/`opacity`, exceto expandir/recolher (altura via `interpolate-size`/grid-rows).
+- `prefers-reduced-motion: reduce` chega ao estado final na hora (rede de segurança em `global.css`); nunca omite a mudança.
+- Todo estado novo com transição ganha teste Playwright em `tests/e2e/motion.spec.ts` (estado intermediário em movimento normal, estado final imediato em `reduce`). O hook `guard-write` bloqueia os padrões secos mais comuns.
+
 ## Tema
 
 Sem cor literal nem classe de paleta crua em componentes; só tokens semânticos de `src/styles/global.css` (`bg-surface`, `text-fg`, `text-accent`…). Skill `theming`.

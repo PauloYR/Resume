@@ -138,6 +138,15 @@ if (/^src\/.*\.(astro|tsx|jsx|css|html)$/.test(rel)) {
       /\b(min-w|w)-\[\d{3,}px\]/,
       'fixed pixel width >= 100px can overflow a 320px viewport. Use w-full/max-w-* or fluid units',
     ],
+    // 5b. Motion: no dry state changes (AGENTS.md, "Movimento"). Toggling display/hidden snaps.
+    [
+      /\b\w*\.hidden\s*=[^=]|classList\.(toggle|add|remove)\(\s*['"]hidden['"]/,
+      'dry show/hide (.hidden = / classList hidden). Animate the state: toggle data-open and transition opacity/grid-rows/visibility (see AGENTS.md "Movimento")',
+    ],
+    [
+      /\b(group-)?(open|checked):(hidden|block|inline|inline-block|flex|grid)\b/,
+      'display swap on a state variant snaps with no transition. Stack both states in a grid and cross-fade opacity (see AGENTS.md "Movimento")',
+    ],
   ];
   for (const [re, label] of mobileRules) {
     const m = re.exec(text);

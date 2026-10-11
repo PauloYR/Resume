@@ -1,16 +1,16 @@
-# Graph Report - paulo-rocha  (2026-10-09)
+# Graph Report - paulo-rocha  (2026-10-11)
 
 ## Corpus Check
-- 81 files · ~77,872 words
+- 88 files · ~81,977 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 396 nodes · 458 edges · 36 communities (32 shown, 4 thin omitted)
+- 423 nodes · 504 edges · 39 communities (35 shown, 4 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c7ea17ca`
+- Built from commit: `ee0d0237`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -23,7 +23,7 @@
 - guard-write.mjs
 - dependencies
 - tsconfig.json
-- format.ts
+- commands.ts
 - Product
 - paulo-rocha
 - content.config.ts
@@ -43,36 +43,39 @@
 - Portfólio (todas as páginas)
 - site.spec.ts
 - optimize-logos.mjs
-- Design System: Paulo Rocha
-- ignorePatterns
-- tech-icons.ts
+- Components
+- count-up.test.ts
+- format.ts
 - build-tech-icons.mjs
 - vercel.json
+- ignorePatterns
 
 ## God Nodes (most connected - your core abstractions)
 1. `scripts` - 17 edges
 2. `Product` - 12 edges
 3. `rules` - 11 edges
-4. `ignorePatterns` - 9 edges
-5. `paulo-rocha` - 9 edges
+4. `paulo-rocha` - 10 edges
+5. `ignorePatterns` - 9 edges
 6. `Design System: Paulo Rocha` - 9 edges
-7. `Site` - 8 edges
-8. `Components` - 8 edges
-9. `UI com Astro + Tailwind 4 (portfólio estático, PT-BR)` - 7 edges
-10. `Tema escuro/claro (roxo + azul)` - 7 edges
+7. `Components` - 9 edges
+8. `vitest` - 8 edges
+9. `Site` - 8 edges
+10. `UI com Astro + Tailwind 4 (portfólio estático, PT-BR)` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `mustParse()` --calls--> `parseMetric()`  [EXTRACTED]
+  src/lib/count-up.test.ts → src/lib/count-up.ts
 - `getSiteGithubActivity()` --calls--> `loadGithubActivity()`  [EXTRACTED]
   src/lib/github-site.ts → src/lib/github.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (36 total, 4 thin omitted)
+## Communities (39 total, 4 thin omitted)
 
 ### Community 0 - "index.astro"
-Cohesion: 0.07
-Nodes (26): links, json, Site, canonical, ogImage, isCurrent(), nav, NavItem (+18 more)
+Cohesion: 0.08
+Nodes (23): links, json, Site, canonical, ogImage, absoluteUrl(), breadcrumbJsonLd(), Crumb (+15 more)
 
 ### Community 1 - "rules"
 Cohesion: 0.08
@@ -102,17 +105,17 @@ Nodes (15): astro, @astrojs/sitemap, @fontsource-variable/bricolage-grotesque, @
 Cohesion: 0.12
 Nodes (16): **/*, astro/tsconfigs/strict, .astro/types.d.ts, ./src/config/*, ./src/content/*, ./src/lib/*, compilerOptions, noUncheckedIndexedAccess (+8 more)
 
-### Community 8 - "format.ts"
-Cohesion: 0.48
-Nodes (4): formatMonth(), formatPeriod(), months, yearsBetween()
+### Community 8 - "commands.ts"
+Cohesion: 0.16
+Nodes (12): commands, buildCommands(), Command, CommandKind, CommandSource, filterCommands(), homeSections, normalize() (+4 more)
 
 ### Community 9 - "Product"
 Cohesion: 0.15
 Nodes (12): Accessibility & Inclusion, Brand Commitments, Capabilities and Constraints, Evidence on Hand, Operating Context, Platform, Positioning, Product (+4 more)
 
 ### Community 10 - "paulo-rocha"
-Cohesion: 0.20
-Nodes (9): Arquitetura enxuta (data-driven), Comandos, Convenções, Documentação, Fluxo obrigatório de trabalho, Leis de segurança e privacidade (inegociáveis), Mobile-first (inegociável), paulo-rocha (+1 more)
+Cohesion: 0.18
+Nodes (10): Arquitetura enxuta (data-driven), Comandos, Convenções, Documentação, Fluxo obrigatório de trabalho, Leis de segurança e privacidade (inegociáveis), Mobile-first (inegociável), Movimento (inegociável) (+2 more)
 
 ### Community 11 - "content.config.ts"
 Cohesion: 0.22
@@ -170,38 +173,42 @@ Nodes (3): routes, themes, widths
 Cohesion: 0.33
 Nodes (4): logos, MARK, PAD, sizes
 
-### Community 30 - "Design System: Paulo Rocha"
+### Community 30 - "Components"
 Cohesion: 0.08
-Nodes (24): Buttons, Cards / Containers, Carrossel de logos (componente de assinatura), Chips, Colors, Components, Design System: Paulo Rocha, Do: (+16 more)
+Nodes (25): Buttons, Cards / Containers, Carrossel de logos (componente de assinatura), Chips, Colors, Components, Design System: Paulo Rocha, Do: (+17 more)
 
-### Community 31 - "ignorePatterns"
-Cohesion: 0.18
-Nodes (9): ignorePatterns, dist, .agents, .astro, .claude/skills, graphify-out, node_modules, playwright-report (+1 more)
+### Community 31 - "count-up.test.ts"
+Cohesion: 0.46
+Nodes (5): easeOutCubic(), formatMetric(), ParsedMetric, parseMetric(), mustParse()
 
-### Community 32 - "tech-icons.ts"
-Cohesion: 0.36
-Nodes (3): TechChip, techIconSlugs, toChip()
+### Community 32 - "format.ts"
+Cohesion: 0.22
+Nodes (7): formatMonth(), formatPeriod(), months, yearsBetween(), TechChip, techIconSlugs, toChip()
 
 ### Community 34 - "build-tech-icons.mjs"
 Cohesion: 0.50
 Nodes (3): bySlug, mapSource, slugs
 
+### Community 37 - "ignorePatterns"
+Cohesion: 0.18
+Nodes (9): ignorePatterns, dist, .agents, .astro, .claude/skills, graphify-out, node_modules, playwright-report (+1 more)
+
 ## Knowledge Gaps
-- **226 isolated node(s):** `cmd`, `problems`, `envFile`, `reader`, `file` (+221 more)
+- **234 isolated node(s):** `cmd`, `problems`, `envFile`, `reader`, `file` (+229 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `vitest` connect `github.ts` to `format.ts`, `rules`, `tech-icons.ts`, `logos.ts`?**
-  _High betweenness centrality (0.058) - this node is a cross-community bridge._
+- **Why does `vitest` connect `github.ts` to `format.ts`, `rules`, `commands.ts`, `logos.ts`, `count-up.test.ts`?**
+  _High betweenness centrality (0.067) - this node is a cross-community bridge._
 - **Why does `plugins` connect `rules` to `github.ts`?**
-  _High betweenness centrality (0.052) - this node is a cross-community bridge._
+  _High betweenness centrality (0.053) - this node is a cross-community bridge._
 - **What connects `cmd`, `problems`, `envFile` to the rest of the system?**
-  _226 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _234 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `index.astro` be split into smaller, more focused modules?**
-  _Cohesion score 0.07312925170068027 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08478513356562137 - nodes in this community are weakly interconnected._
 - **Should `rules` be split into smaller, more focused modules?**
   _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._
 - **Should `scripts` be split into smaller, more focused modules?**

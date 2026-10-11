@@ -203,12 +203,12 @@ Botão de 44px ou mais com o gopher oficial (Renée French, vetor de Takuya Ueda
 
 ### Movimento por scroll e ação
 
-Regra geral: o movimento responde ao scroll ou a uma ação da pessoa, acontece uma vez e usa só `transform` e `opacity`. Sem biblioteca; tokens `--ease-out`, `--dur-fast` e `--dur-base` em `global.css`. Tudo some com `prefers-reduced-motion: reduce`, e em navegadores sem suporte o conteúdo simplesmente aparece estático.
+Regra geral: o movimento responde ao scroll ou a uma ação da pessoa, acontece uma vez e usa só `transform` e `opacity` (exceção: expandir/recolher anima a altura via `interpolate-size`). Nenhuma mudança de estado é seca: toda abertura, fechamento e troca de texto, ícone ou tema tem transição (regra em AGENTS.md, "Movimento"). Sem biblioteca; tokens `--ease-out`, `--dur-fast` e `--dur-base` em `global.css`. Tudo some com `prefers-reduced-motion: reduce`, e em navegadores sem suporte o conteúdo simplesmente aparece estático.
 
 - **Entrada (`.reveal`):** blocos sobem 12px e aparecem ao entrar na tela (`animation-timeline: view()`, sem JS). Usada em cabeçalhos de seção, cases, carrosséis, stack, GitHub e cada cargo. O hero não anima, para não atrasar o LCP.
 - **Números dos cases:** o valor final já está no HTML. Ao entrar na tela (uma vez), números simples contam de zero até o valor em 900ms. Intervalos ("15–25 s") e palavras ("nunca") não animam.
-- **Trajetória:** timeline com trilho sólido à esquerda (sem gradiente) que se desenha com o scroll e um nó por cargo (preenchido no cargo atual). Cada cargo abre com `<details>` nativo, mostrando realizações e stack; o primeiro vem aberto.
-- **Paleta de comandos (Ctrl/Cmd+K):** `<dialog>` nativo com busca e ações (seções, páginas, tema, currículo, copiar e-mail, LinkedIn, GitHub). No desktop há o botão "Buscar" no header; no celular, o item "Buscar no site" no menu. Itens de 44px, selecionado marcado por barra e fundo, entrada de 150ms.
+- **Trajetória:** timeline com trilho sólido à esquerda (sem gradiente) que se desenha com o scroll e um nó por cargo (preenchido no cargo atual). Cada cargo abre com `<details>` nativo, mostrando realizações e stack com altura e fade de 300ms (Web Animations API, funciona em todos os navegadores); o primeiro vem aberto. Rótulo e chevron trocam em cross-fade.
+- **Paleta de comandos (Ctrl/Cmd+K):** `<dialog>` nativo com busca e ações (seções, páginas, tema, currículo, copiar e-mail, LinkedIn, GitHub). No desktop há o botão "Buscar" no header; no celular, o item "Buscar no site" no menu. Itens de 44px, selecionado marcado por barra e fundo, entrada e saída de 150ms (fade e leve deslocamento, backdrop incluso). Lista vazia e aviso de cópia entram e saem com fade.
 - **Entre páginas:** `@view-transition` troca `/`, `/projetos` e `/curriculo` com fade; o header tem nome próprio para ficar parado.
 
 ## Do's and Don'ts
@@ -218,12 +218,14 @@ Regra geral: o movimento responde ao scroll ou a uma ação da pessoa, acontece 
 - **Do** usar só tokens semânticos (`bg-surface`, `text-muted`, `border-line`) e deixar o tema trocar os valores.
 - **Do** reservar o gradiente ao destaque do título e ao botão de ação principal.
 - **Do** mostrar números reais com `tabular-nums`, e o antes riscado quando houver comparação.
+- **Do** animar toda mudança de estado com os tokens de movimento; reduced-motion vai direto ao estado final.
 - **Do** manter alvos de toque de 44px ou mais e foco visível em `accent-2`.
 - **Do** gerar logos pelo `scripts/optimize-logos.mjs`, nunca à mão, para manter o tile uniforme.
 
 ### Don't:
 
 - **Don't** pôr gradiente em ponto de marca, ícone, borda, card ou texto corrente.
+- **Don't** alternar `hidden`/`display` sem transição (abre e fecha "seco").
 - **Don't** reintroduzir o conceito de renda/fios, descartado pelo usuário.
 - **Don't** empilhar sombra sobre borda, nem aninhar cards.
 - **Don't** usar cor literal, classe de paleta crua, `max-*:`, `vh` ou largura fixa de 100px ou mais.

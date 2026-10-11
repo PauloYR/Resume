@@ -9,7 +9,7 @@ const commands = buildCommands({ nav, site });
 
 <dialog
   id="command-palette"
-  class="palette m-0 mx-auto mt-[10dvh] mb-auto w-[calc(100%-2rem)] max-w-xl overflow-hidden rounded-[0.875rem] border border-line bg-surface p-0 text-fg backdrop:bg-bg/80 print:hidden"
+  class="palette m-0 mx-auto mt-[10dvh] mb-auto w-[calc(100%-2rem)] max-w-xl overflow-hidden rounded-[0.875rem] border border-line bg-surface p-0 text-fg print:hidden"
   aria-label="Buscar seção ou ação"
   data-commands={JSON.stringify(commands)}
 >
@@ -44,16 +44,20 @@ const commands = buildCommands({ nav, site });
     aria-label="Resultados"
     class="max-h-[50dvh] overflow-y-auto p-2"
   ></ul>
-  <p data-palette-empty hidden class="px-4 py-6 text-center text-muted">
-    Nada encontrado. Tente "currículo", "tema" ou "github".
-  </p>
+  <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none has-data-[open]:grid-rows-[1fr]">
+    <p
+      data-palette-empty
+      class="invisible min-h-0 overflow-hidden px-4 text-center text-muted opacity-0 transition-[opacity,visibility] duration-300 ease-out motion-reduce:transition-none data-[open]:visible data-[open]:py-6 data-[open]:opacity-100"
+    >
+      Nada encontrado. Tente "currículo", "tema" ou "github".
+    </p>
+  </div>
 </dialog>
 
 <p
   data-palette-toast
   role="status"
-  hidden
-  class="fixed inset-x-4 bottom-4 z-50 mx-auto w-fit max-w-full rounded-full border border-line bg-surface px-4 py-3 text-sm text-fg print:hidden"
+  class="invisible fixed inset-x-4 bottom-4 z-50 mx-auto w-fit max-w-full translate-y-2 rounded-full border border-line bg-surface px-4 py-3 text-sm text-fg opacity-0 transition-[opacity,transform,visibility] duration-300 ease-out motion-reduce:transition-none data-[open]:visible data-[open]:translate-y-0 data-[open]:opacity-100 print:hidden"
 ></p>
 
 <script>
@@ -61,7 +65,7 @@ const commands = buildCommands({ nav, site });
   import type { Command } from '@lib/commands';
 
   const OPTION_CLASS =
-    'flex min-h-11 cursor-pointer items-center justify-between gap-3 rounded-lg border-l-2 border-transparent px-3 py-2 text-muted aria-selected:border-accent aria-selected:bg-surface-2 aria-selected:text-fg';
+    'flex min-h-11 cursor-pointer items-center justify-between gap-3 rounded-lg border-l-2 border-transparent px-3 py-2 text-muted transition-colors duration-150 ease-out motion-reduce:transition-none aria-selected:border-accent aria-selected:bg-surface-2 aria-selected:text-fg';
 
   function isCommand(value: unknown): value is Command {
     return (
@@ -104,10 +108,10 @@ const commands = buildCommands({ nav, site });
     function showToast(message: string) {
       if (!toast) return;
       toast.textContent = message;
-      toast.hidden = false;
+      toast.dataset.open = '';
       window.clearTimeout(toastTimer);
       toastTimer = window.setTimeout(() => {
-        toast.hidden = true;
+        delete toast.dataset.open;
       }, 2400);
     }
 
@@ -125,7 +129,8 @@ const commands = buildCommands({ nav, site });
     function render() {
       if (!list || !empty || !input) return;
       list.replaceChildren();
-      empty.hidden = results.length > 0;
+      if (results.length > 0) delete empty.dataset.open;
+      else empty.dataset.open = '';
       input.removeAttribute('aria-activedescendant');
 
       results.forEach((command, index) => {
