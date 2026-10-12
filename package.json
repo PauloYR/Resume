@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "dev:demo": "DEMO_VETERINARY_URL=http://localhost:4391 DEMO_LAW_URL=http://localhost:4392 DEMO_COFFEE_URL=http://localhost:4393 astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",

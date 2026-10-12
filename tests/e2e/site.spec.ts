@@ -191,3 +191,44 @@ test.describe('resume contact line', () => {
     }
   });
 });
+
+test.describe('demo sites', () => {
+  for (const route of ['/', '/projetos']) {
+    test(`${route} lists the three demos with loaded previews`, async ({
+      page,
+    }) => {
+      await page.goto(route);
+      const section = page.locator('section[aria-labelledby="exemplos"]');
+      const cards = section.locator('.card');
+      await expect(cards).toHaveCount(3);
+      await cards.first().scrollIntoViewIfNeeded();
+      for (const img of await section.locator('img').all()) {
+        await img.scrollIntoViewIfNeeded();
+        await expect
+          .poll(() => img.evaluate((el: HTMLImageElement) => el.naturalWidth))
+          .toBeGreaterThan(0);
+      }
+
+      // Each card is either a safe external link or an honest "coming soon" placeholder.
+      for (const card of await cards.all()) {
+        const href = await card.getAttribute('href');
+        if (href) {
+          expect(href).toMatch(/^(https:\/\/|http:\/\/localhost[:/])/);
+          await expect(card).toHaveAttribute('target', '_blank');
+          await expect(card).toHaveAttribute('rel', 'noopener noreferrer');
+        } else {
+          await expect(card).toContainText('Link em breve');
+        }
+      }
+    });
+  }
+
+  test('has no horizontal scroll at 320px on /projetos', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto('/projetos');
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - window.innerWidth,
+    );
+    expect(overflow).toBeLessThanOrEqual(0);
+  });
+});

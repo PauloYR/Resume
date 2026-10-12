@@ -1,11 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
 import { site } from '@config/site';
+import { demoUrls } from '@config/demos';
+import { withLiveUrl } from '@lib/demos';
 import { personJsonLd, websiteJsonLd } from '@lib/seo';
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import CaseRow from '../components/CaseRow.astro';
+import DemoCard from '../components/DemoCard.astro';
 import CompanyCarousel from '../components/CompanyCarousel.astro';
 import ExperienceList from '../components/ExperienceList.astro';
 import StackList from '../components/StackList.astro';
@@ -21,6 +24,13 @@ const allCases = (await getCollection('cases'))
   .map((entry) => entry.data)
   .sort((a, b) => a.order - b.order);
 const cases = allCases.slice(0, 3);
+const demos = withLiveUrl(
+  (await getCollection('demos')).map((entry) => ({
+    id: entry.id,
+    ...entry.data,
+  })),
+  demoUrls,
+);
 const gopherLines = buildGopherLines(allCases);
 const experience = (await getCollection('experience'))
   .map((entry) => ({ id: entry.id, ...entry.data }))
@@ -66,6 +76,23 @@ const description = `${site.name}, engenheiro de software sênior em Fortaleza-C
     <div class="grid gap-6">
       {cases.map((item) => (
         <CaseRow {...item} />
+      ))}
+    </div>
+  </section>
+
+  <section class="py-12 md:py-20" aria-labelledby="exemplos">
+    <SectionHead
+      id="exemplos"
+      title="Sites de exemplo"
+      intro="Três landing pages que criei como demonstração: sites estáticos e rápidos, feitos para serem lidos e indexados por buscadores como o Google."
+      href="/projetos#exemplos"
+      linkLabel="Ver todos os exemplos"
+    />
+    <div class="grid gap-6 md:grid-cols-2">
+      {demos.map((demo, index) => (
+        <div class:list={[index === 0 && 'md:col-span-2']}>
+          <DemoCard {...demo} featured={index === 0} />
+        </div>
       ))}
     </div>
   </section>

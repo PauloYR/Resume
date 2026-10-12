@@ -29,6 +29,9 @@ jobs:
         env:
           SITE_URL: ${{ vars.SITE_URL }}
           GITHUB_USER: ${{ vars.GITHUB_USER }}
+          DEMO_VETERINARY_URL: ${{ vars.DEMO_VETERINARY_URL }}
+          DEMO_LAW_URL: ${{ vars.DEMO_LAW_URL }}
+          DEMO_COFFEE_URL: ${{ vars.DEMO_COFFEE_URL }}
           GITHUB_TOKEN: ${{ secrets.GH_STATS_TOKEN }}
         run: npm run build
       - run: npm run pdf

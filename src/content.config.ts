@@ -41,6 +41,18 @@ const cases = defineCollection({
   }),
 });
 
+const demos = defineCollection({
+  loader: file('src/content/demos.json'),
+  schema: z.object({
+    order: z.number(),
+    title: z.string(),
+    segment: z.string(),
+    summary: z.string(),
+    tags: z.array(z.string()),
+    alt: z.string(),
+  }),
+});
+
 const clients = defineCollection({
   loader: file('src/content/clients.json'),
   schema: z.object({
@@ -80,6 +92,7 @@ const certifications = defineCollection({
 export const collections = {
   experience,
   cases,
+  demos,
   skills,
   education,
   certifications,

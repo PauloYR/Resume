@@ -1,0 +1,29 @@
+[
+  {
+    "id": "veterinary",
+    "order": 1,
+    "title": "Patas & Prosa",
+    "segment": "Clínica veterinária",
+    "summary": "Landing page de exemplo para uma clínica veterinária fictícia: hero com chamada para WhatsApp, serviços, equipe e contato, em HTML estático e rápido.",
+    "tags": ["Astro", "Tailwind", "WhatsApp"],
+    "alt": "Site da clínica veterinária Patas & Prosa em versão desktop e mobile, com um cachorro sendo examinado."
+  },
+  {
+    "id": "law",
+    "order": 2,
+    "title": "Lume & Aragão",
+    "segment": "Escritório de advocacia",
+    "summary": "Landing page de exemplo para um escritório de advocacia fictício: layout sóbrio, áreas de atuação, números e chamada para consulta, em HTML estático e rápido.",
+    "tags": ["Astro", "Tailwind", "Institucional"],
+    "alt": "Site do escritório Lume & Aragão em versão desktop e mobile, com a estátua da justiça no destaque."
+  },
+  {
+    "id": "coffee",
+    "order": 3,
+    "title": "Casa Brasa Café",
+    "segment": "Cafeteria",
+    "summary": "Landing page de exemplo para uma cafeteria fictícia: visual escuro e aconchegante, cardápio, oferta da semana e pedido pelo WhatsApp, em HTML estático e rápido.",
+    "tags": ["Astro", "Tailwind", "Cardápio"],
+    "alt": "Site da cafeteria Casa Brasa Café em versão desktop e mobile, com um café com arte de leite."
+  }
+]
