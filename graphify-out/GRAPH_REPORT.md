@@ -1,16 +1,16 @@
 # Graph Report - paulo-rocha  (2026-10-11)
 
 ## Corpus Check
-- 88 files · ~81,977 words
+- 93 files · ~144,842 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 423 nodes · 504 edges · 39 communities (35 shown, 4 thin omitted)
+- 440 nodes · 532 edges · 39 communities (35 shown, 4 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ee0d0237`
+- Built from commit: `8f90900b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -51,14 +51,14 @@
 - ignorePatterns
 
 ## God Nodes (most connected - your core abstractions)
-1. `scripts` - 17 edges
+1. `scripts` - 18 edges
 2. `Product` - 12 edges
 3. `rules` - 11 edges
 4. `paulo-rocha` - 10 edges
-5. `ignorePatterns` - 9 edges
-6. `Design System: Paulo Rocha` - 9 edges
-7. `Components` - 9 edges
-8. `vitest` - 8 edges
+5. `vitest` - 9 edges
+6. `ignorePatterns` - 9 edges
+7. `Design System: Paulo Rocha` - 9 edges
+8. `Components` - 9 edges
 9. `Site` - 8 edges
 10. `UI com Astro + Tailwind 4 (portfólio estático, PT-BR)` - 7 edges
 
@@ -74,16 +74,16 @@
 ## Communities (39 total, 4 thin omitted)
 
 ### Community 0 - "index.astro"
-Cohesion: 0.08
-Nodes (23): links, json, Site, canonical, ogImage, absoluteUrl(), breadcrumbJsonLd(), Crumb (+15 more)
+Cohesion: 0.06
+Nodes (36): commands, links, json, DemoSlug, demoUrls, httpsUrl, localUrl, Site (+28 more)
 
 ### Community 1 - "rules"
 Cohesion: 0.08
 Nodes (25): categories, correctness, suspicious, env, browser, es2024, node, overrides (+17 more)
 
 ### Community 2 - "scripts"
-Cohesion: 0.08
-Nodes (25): allowScripts, esbuild, engines, node, name, private, scripts, astro (+17 more)
+Cohesion: 0.07
+Nodes (26): allowScripts, esbuild, engines, node, name, private, scripts, astro (+18 more)
 
 ### Community 3 - "github.ts"
 Cohesion: 0.10
@@ -106,8 +106,8 @@ Cohesion: 0.12
 Nodes (16): **/*, astro/tsconfigs/strict, .astro/types.d.ts, ./src/config/*, ./src/content/*, ./src/lib/*, compilerOptions, noUncheckedIndexedAccess (+8 more)
 
 ### Community 8 - "commands.ts"
-Cohesion: 0.16
-Nodes (12): commands, buildCommands(), Command, CommandKind, CommandSource, filterCommands(), homeSections, normalize() (+4 more)
+Cohesion: 0.29
+Nodes (8): buildCommands(), Command, CommandKind, CommandSource, filterCommands(), homeSections, normalize(), source
 
 ### Community 9 - "Product"
 Cohesion: 0.15
@@ -118,8 +118,8 @@ Cohesion: 0.18
 Nodes (10): Arquitetura enxuta (data-driven), Comandos, Convenções, Documentação, Fluxo obrigatório de trabalho, Leis de segurança e privacidade (inegociáveis), Mobile-first (inegociável), Movimento (inegociável) (+2 more)
 
 ### Community 11 - "content.config.ts"
-Cohesion: 0.22
-Nodes (8): cases, certifications, clients, collections, education, experience, period, skills
+Cohesion: 0.20
+Nodes (9): cases, certifications, clients, collections, demos, education, experience, period (+1 more)
 
 ### Community 12 - "UI com Astro + Tailwind 4 (portfólio estático, PT-BR)"
 Cohesion: 0.25
@@ -194,24 +194,24 @@ Cohesion: 0.18
 Nodes (9): ignorePatterns, dist, .agents, .astro, .claude/skills, graphify-out, node_modules, playwright-report (+1 more)
 
 ## Knowledge Gaps
-- **234 isolated node(s):** `cmd`, `problems`, `envFile`, `reader`, `file` (+229 more)
+- **243 isolated node(s):** `cmd`, `problems`, `envFile`, `reader`, `file` (+238 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `vitest` connect `github.ts` to `format.ts`, `rules`, `commands.ts`, `logos.ts`, `count-up.test.ts`?**
-  _High betweenness centrality (0.067) - this node is a cross-community bridge._
+- **Why does `vitest` connect `github.ts` to `format.ts`, `rules`, `index.astro`, `commands.ts`, `logos.ts`, `count-up.test.ts`?**
+  _High betweenness centrality (0.069) - this node is a cross-community bridge._
 - **Why does `plugins` connect `rules` to `github.ts`?**
-  _High betweenness centrality (0.053) - this node is a cross-community bridge._
+  _High betweenness centrality (0.055) - this node is a cross-community bridge._
 - **What connects `cmd`, `problems`, `envFile` to the rest of the system?**
-  _234 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _243 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `index.astro` be split into smaller, more focused modules?**
-  _Cohesion score 0.08478513356562137 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.055288461538461536 - nodes in this community are weakly interconnected._
 - **Should `rules` be split into smaller, more focused modules?**
   _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._
 - **Should `scripts` be split into smaller, more focused modules?**
-  _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._
 - **Should `github.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.10317460317460317 - nodes in this community are weakly interconnected._
