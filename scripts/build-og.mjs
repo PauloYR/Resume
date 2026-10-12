@@ -35,6 +35,12 @@ const pages = [
     line: 'De 15–25 s para ≤ 1 s · 98,1% de sucesso · 588 eventos/s',
   },
   {
+    slug: 'sites',
+    title: 'Sites para negócios',
+    accent: 'Rápidos, no Google e no celular',
+    line: 'Landing pages · Exemplos ao vivo · Orçamento por e-mail',
+  },
+  {
     slug: 'curriculo',
     title: 'Currículo',
     accent: 'Paulo Rocha, Backend em Go',

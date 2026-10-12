@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const routes = ['/', '/projetos', '/curriculo'];
+const routes = ['/', '/projetos', '/curriculo', '/sites'];
 
 for (const route of routes) {
   test.describe(route, () => {
@@ -193,39 +193,61 @@ test.describe('resume contact line', () => {
 });
 
 test.describe('demo sites', () => {
+  test('/sites lists the three demos with loaded previews', async ({
+    page,
+  }) => {
+    await page.goto('/sites');
+    const section = page.locator('section[aria-labelledby="exemplos"]');
+    const cards = section.locator('.card');
+    await expect(cards).toHaveCount(3);
+    await cards.first().scrollIntoViewIfNeeded();
+    for (const img of await section.locator('img').all()) {
+      await img.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() => img.evaluate((el: HTMLImageElement) => el.naturalWidth))
+        .toBeGreaterThan(0);
+    }
+
+    // Each card is either a safe external link or an honest "coming soon" placeholder.
+    for (const card of await cards.all()) {
+      const href = await card.getAttribute('href');
+      if (href) {
+        expect(href).toMatch(/^(https:\/\/|http:\/\/localhost[:/])/);
+        await expect(card).toHaveAttribute('target', '_blank');
+        await expect(card).toHaveAttribute('rel', 'noopener noreferrer');
+      } else {
+        await expect(card).toContainText('Link em breve');
+      }
+    }
+  });
+
+  test('/sites offers a quote by e-mail without exposing a phone', async ({
+    page,
+  }) => {
+    await page.goto('/sites');
+    const quote = page.getByRole('link', { name: /Pedir orçamento/ });
+    await expect(quote.first()).toHaveAttribute(
+      'href',
+      /^mailto:[^?]+\?subject=Or%C3%A7amento/,
+    );
+  });
+
   for (const route of ['/', '/projetos']) {
-    test(`${route} lists the three demos with loaded previews`, async ({
+    test(`${route} stays recruiter-focused, with only a link to /sites`, async ({
       page,
     }) => {
       await page.goto(route);
-      const section = page.locator('section[aria-labelledby="exemplos"]');
-      const cards = section.locator('.card');
-      await expect(cards).toHaveCount(3);
-      await cards.first().scrollIntoViewIfNeeded();
-      for (const img of await section.locator('img').all()) {
-        await img.scrollIntoViewIfNeeded();
-        await expect
-          .poll(() => img.evaluate((el: HTMLImageElement) => el.naturalWidth))
-          .toBeGreaterThan(0);
-      }
-
-      // Each card is either a safe external link or an honest "coming soon" placeholder.
-      for (const card of await cards.all()) {
-        const href = await card.getAttribute('href');
-        if (href) {
-          expect(href).toMatch(/^(https:\/\/|http:\/\/localhost[:/])/);
-          await expect(card).toHaveAttribute('target', '_blank');
-          await expect(card).toHaveAttribute('rel', 'noopener noreferrer');
-        } else {
-          await expect(card).toContainText('Link em breve');
-        }
-      }
+      await expect(
+        page.locator('section[aria-labelledby="exemplos"]'),
+      ).toHaveCount(0);
+      await expect(page.getByText('Sites de exemplo')).toHaveCount(0);
+      await expect(page.locator('a[href="/sites"]').first()).toBeVisible();
     });
   }
 
-  test('has no horizontal scroll at 320px on /projetos', async ({ page }) => {
+  test('has no horizontal scroll at 320px on /sites', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 700 });
-    await page.goto('/projetos');
+    await page.goto('/sites');
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - window.innerWidth,
     );

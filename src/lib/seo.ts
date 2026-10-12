@@ -45,6 +45,19 @@ export function websiteJsonLd(site: Site, origin: string) {
   };
 }
 
+export function serviceJsonLd(site: Site, origin: string, description: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: `${site.name} | Sites para pequenos negócios`,
+    description,
+    url: absoluteUrl(origin, '/sites'),
+    areaServed: { '@type': 'Country', name: site.country },
+    inLanguage: site.locale,
+    provider: { '@type': 'Person', name: site.name, url: origin },
+  };
+}
+
 export function breadcrumbJsonLd(origin: string, crumbs: readonly Crumb[]) {
   return {
     '@context': 'https://schema.org',
