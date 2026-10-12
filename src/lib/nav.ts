@@ -6,6 +6,7 @@ export interface NavItem {
 export const nav: readonly NavItem[] = [
   { href: '/', label: 'Início' },
   { href: '/projetos', label: 'Cases' },
+  { href: '/sites', label: 'Sites' },
   { href: '/curriculo', label: 'Currículo' },
 ] as const;
 

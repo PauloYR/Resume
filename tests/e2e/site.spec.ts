@@ -140,6 +140,24 @@ test('mobile menu opens and closes with Escape', async ({ page, isMobile }) => {
   await expect(page.locator('#mobile-menu')).toBeHidden();
 });
 
+test('mobile menu rows fill the width and list Sites', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, 'mobile only');
+  await page.goto('/');
+  await page.locator('[data-menu-button]').click();
+  const menu = page.locator('#mobile-menu');
+  await expect(menu.getByRole('link', { name: 'Sites' })).toBeVisible();
+
+  const viewport = page.viewportSize()?.width ?? 0;
+  const search = await menu.getByRole('button').boundingBox();
+  const arrow = await menu.locator('li a svg').first().boundingBox();
+  // Rows span the container, so the icons sit at the right edge, not next to the label.
+  expect(search?.width ?? 0).toBeGreaterThan(viewport - 48);
+  expect((arrow?.x ?? 0) + (arrow?.width ?? 0)).toBeGreaterThan(viewport - 40);
+});
+
 test('mobile menu button shows a visible icon', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'mobile only');
   await page.goto('/');
@@ -241,7 +259,9 @@ test.describe('demo sites', () => {
         page.locator('section[aria-labelledby="exemplos"]'),
       ).toHaveCount(0);
       await expect(page.getByText('Sites de exemplo')).toHaveCount(0);
-      await expect(page.locator('a[href="/sites"]').first()).toBeVisible();
+      await expect(
+        page.getByRole('link', { name: 'veja os exemplos' }),
+      ).toHaveAttribute('href', '/sites');
     });
   }
 
