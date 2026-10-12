@@ -79,8 +79,14 @@ const lists = [{ hidden: false }, { hidden: true }];
   .carousel-reverse {
     animation-direction: reverse;
   }
-  .carousel:hover .carousel-track,
-  .carousel:focus-within .carousel-track {
+  /* Pause only where a real pointer hovers. On touch, a tap leaves :hover stuck
+     and the carousel would stay paused with no way to resume. */
+  @media (hover: hover) and (pointer: fine) {
+    .carousel:hover .carousel-track {
+      animation-play-state: paused;
+    }
+  }
+  .carousel:has(:focus-visible) .carousel-track {
     animation-play-state: paused;
   }
   @keyframes slide {

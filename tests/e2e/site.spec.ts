@@ -86,6 +86,50 @@ test('carousels render each item once for assistive tech', async ({ page }) => {
   }
 });
 
+test('carousel keeps running after a tap on touch devices', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, 'touch only');
+  await page.goto('/');
+  const region = page.getByRole('region', { name: 'Empresas onde trabalhei' });
+  const track = region.locator('.carousel-track');
+  await region.scrollIntoViewIfNeeded();
+  // The track is always moving, so tap by coordinates instead of waiting for stability.
+  const box = await region.boundingBox();
+  if (!box) throw new Error('carousel has no box');
+  await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
+
+  const state = () =>
+    track.evaluate((el) => getComputedStyle(el).animationPlayState);
+  const offset = () =>
+    track.evaluate((el) => new DOMMatrix(getComputedStyle(el).transform).m41);
+
+  expect(await state()).toBe('running');
+  const before = await offset();
+  await page.waitForTimeout(500);
+  expect(await offset()).not.toBe(before);
+});
+
+test('carousel pauses on pointer hover on desktop', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, 'desktop only');
+  await page.goto('/');
+  const region = page.getByRole('region', { name: 'Empresas onde trabalhei' });
+  const track = region.locator('.carousel-track');
+  await region.scrollIntoViewIfNeeded();
+  await region.hover();
+  await expect
+    .poll(() => track.evaluate((el) => getComputedStyle(el).animationPlayState))
+    .toBe('paused');
+  await page.mouse.move(0, 0);
+  await expect
+    .poll(() => track.evaluate((el) => getComputedStyle(el).animationPlayState))
+    .toBe('running');
+});
+
 test('mobile menu opens and closes with Escape', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'mobile only');
   await page.goto('/');
