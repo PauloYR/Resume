@@ -53,22 +53,27 @@ const description = `Currículo de ${site.name}: ${site.yearsOfExperience} anos 
       <p class="mt-3 font-display text-xl font-medium text-muted md:text-2xl">
         {site.role} | {site.specialty}
       </p>
-      <p class="mt-2 text-sm text-muted">
-        {site.city}, {site.region} ·{' '}
-        <a
-          href={`mailto:${site.email}`}
-          class="underline decoration-accent underline-offset-4"
-        >
-          {site.email}
-        </a>{' '}
-        ·
-        <a
-          href={site.linkedin}
-          class="underline decoration-accent underline-offset-4"
-        >
-          linkedin.com/in/pauloyr
-        </a>
-      </p>
+      <ul class="mt-3 flex flex-col gap-1 text-sm text-muted sm:flex-row sm:flex-wrap sm:gap-x-2">
+        <li>
+          {site.city}, {site.region}
+        </li>
+        <li class="sm:before:mr-2 sm:before:content-['·']">
+          <a
+            href={`mailto:${site.email}`}
+            class="underline decoration-accent underline-offset-4"
+          >
+            {site.email}
+          </a>
+        </li>
+        <li class="sm:before:mr-2 sm:before:content-['·']">
+          <a
+            href={site.linkedin}
+            class="underline decoration-accent underline-offset-4"
+          >
+            linkedin.com/in/pauloyr
+          </a>
+        </li>
+      </ul>
 
       <div class="mt-8 flex flex-wrap gap-3 print:hidden">
         <a

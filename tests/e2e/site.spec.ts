@@ -174,3 +174,20 @@ test.describe('stack section', () => {
     expect(overflow).toBeLessThanOrEqual(0);
   });
 });
+
+test.describe('resume contact line', () => {
+  test('stacks on mobile and stays inline on desktop', async ({ page }) => {
+    await page.goto('/curriculo');
+    const items = page.locator('#titulo ~ ul li');
+    await expect(items).toHaveCount(3);
+    const tops = await items.evaluateAll((els) =>
+      els.map((el) => Math.round(el.getBoundingClientRect().top)),
+    );
+    const width = page.viewportSize()?.width ?? 0;
+    if (width < 640) {
+      expect(new Set(tops).size).toBe(3);
+    } else {
+      expect(new Set(tops).size).toBe(1);
+    }
+  });
+});
