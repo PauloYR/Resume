@@ -26,8 +26,12 @@ const {
 } = Astro.props;
 const origin = Astro.site?.toString() ?? 'http://localhost:4321';
 const canonical = absoluteUrl(origin, path);
+// `build.format: 'file'` makes the pathname `/index.html` / `/projetos.html`.
+const cleanPath = path.replace(/\.html$/, '').replace(/\/index$/, '/');
 const ogSlug =
-  path === '/' ? 'home' : path.replace(/^\//, '').split('/')[0] || 'default';
+  cleanPath === '/'
+    ? 'home'
+    : cleanPath.replace(/^\//, '').split('/')[0] || 'default';
 const ogImage = absoluteUrl(origin, `/og/${ogSlug}.png`);
 ---
 

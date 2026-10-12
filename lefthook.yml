@@ -30,3 +30,5 @@ pre-push:
       run: npx vitest run --passWithNoTests
     - name: build
       run: npm run build
+    - name: github pages redirect in sync
+      run: npm run pages:check

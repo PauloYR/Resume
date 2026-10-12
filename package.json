@@ -20,6 +20,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "pdf": "node scripts/build-pdf.mjs",
+    "pages:sync": "node scripts/sync-pages-redirect.mjs",
+    "pages:check": "node scripts/sync-pages-redirect.mjs --check",
     "secrets:scan": "betterleaks dir . --no-banner --redact",
     "audit": "npm audit --omit=dev --audit-level=high",
     "hooks:test": "node .claude/hooks/selftest.mjs",
