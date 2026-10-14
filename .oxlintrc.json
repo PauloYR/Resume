@@ -6,6 +6,7 @@
   "ignorePatterns": [
     "dist",
     ".astro",
+    ".vercel",
     "node_modules",
     "graphify-out",
     ".agents",
